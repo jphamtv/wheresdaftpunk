@@ -1,8 +1,9 @@
 import express from 'express';
-import { getScores } from '../controllers/scoreController';
+import { getAllScores, createScore } from '../controllers/scoreController';
 
 const router = express.Router();
 
-router.get('/', getScores);
+router.get('/', getAllScores);
+router.post('/', createScore);
 
 export default router;

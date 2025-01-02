@@ -1,9 +1,9 @@
 import express from 'express';
+import { getTargets, verifyTarget } from '../controllers/targetController';
 
 const router = express.Router();
 
-router.get('/targets', getNames);
+router.get('/targets', getTargets);
 router.post('/verify', verifyTarget);
-router.post('/score', submitScore);
 
 export default router;
