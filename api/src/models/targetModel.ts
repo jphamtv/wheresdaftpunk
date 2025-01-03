@@ -1,9 +1,10 @@
 import db from './db';
+import { Target, VerifyTarget } from '../types/targetTypes';
 
-export const getAll = async () => {
-  const { rows } = await db.query(`
-    SELECT *
-    FROM targets
+export const getAll = async (): Promise<Target[]> => {
+  const { rows } = await db.query<Target>(`
+    SELECT * FROM targets
+    ORDER BY name DESC
   `);
   return rows;
 };

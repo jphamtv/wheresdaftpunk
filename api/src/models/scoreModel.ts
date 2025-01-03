@@ -1,18 +1,19 @@
 import db from './db';
-import '../types/scoreTypes';
+import { Score, NewScore } from '../types/scoreTypes';
 
-export const create = async (username: string, time_seconds: number) => {
-  const { rows } = await db.query(
+export const create = async ({ username, time_seconds }: NewScore): Promise<Score> => {
+  const { rows } = await db.query<Score>(
     'INSERT INTO scores (username, time_seconds) VALUES ($1, $2) RETURNING *',
     [username, time_seconds]
   );
   return rows[0];
 };
 
-export const getAll = async () => {
-  const { rows } = await db.query(`
-    SELECT *
-    FROM scores
+export const getAll = async (): Promise<Score[]> => {
+  const { rows } = await db.query<Score>(`
+    SELECT * FROM scores
+    ORDER BY time_seconds ASC
+    LIMIT 10
   `);
   return rows;
 };
