@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { create, getAll } from "../models/scoreModel";
-import { Score, NewScore } from '../types/scoreTypes';
+import { NewScore } from '../types/scoreTypes';
 
 export const getScores = async (req: Request, res: Response) => {
   try {

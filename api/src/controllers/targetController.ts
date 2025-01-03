@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
-import { getAll, getById } from "../models/targetModel";
+import { getAll, getById, verifyCoordinates } from "../models/targetModel";
+import { VerifyTarget } from '../types/targetTypes';
 
 export const getTargets = async (req: Request, res: Response) => {
   try {
     const targets = await getAll();
-    res.json(targets);
+
+    // Only send necessary data to client (exclude exact coordinates)
+    const safeTargets = targets.map(({ id, name }) => ({ id, name }));
+    res.json(safeTargets);
   } catch (err) {
     console.error("Fetching error: ", err);
     res.status(500).json({ message: "Error fetching targets" });
@@ -13,28 +17,25 @@ export const getTargets = async (req: Request, res: Response) => {
 
 export const verifyTarget = async (req: Request, res: Response) => {
   try {
-    // Get selected coordinates
-    const { xCoordinate, yCoordinate } = req.body;
+    const { id, x_coord, y_coord } = req.body as VerifyTarget;
 
-    // Get target info
-    const id = parseInt(req.params.id, 10);
-    if (isNaN(id)) {
-      throw new Error('Invalid ID');
+    const result = await verifyCoordinates({ id, x_coord, y_coord });
+
+    // Get target name for success if found
+    if (result) {
+      const target = await getById(id);
+      return res.json({
+        success: true,
+        message: `You found ${target.name}!`
+      });
     }
 
-    const target = await getById(id);
-
-    // Determine if target is hit
-    // Calculate selected coordinates radius
-    // Calculate selected target from dropdown radius
-    // If there is a match return success message, else try again message
-    if (!match) {
-      res.json({ message: 'Try again' });
-    } else {
-      res.json({message: `${target.name} found!`})
-    }
+    res.json({
+      success: false,
+      message: 'Try again'
+    });
   } catch (err) {
-    console.error("Fetching error: ", err);
-    res.status(500).json({ message: "Error getting target" });
+    console.error("Error verifying target: ", err);
+    res.status(500).json({ message: "Error verifying target" });
   }
 };
