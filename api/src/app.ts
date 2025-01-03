@@ -1,6 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import cors from "cors";
-import gameRouter from './routes/gameRouter';
+import gameRouter from './routes/targetsRouter';
 import scoresRouter from './routes/scoresRouter';
 import dotenv from "dotenv";
 dotenv.config();
