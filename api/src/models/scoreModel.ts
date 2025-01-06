@@ -13,7 +13,7 @@ export const getAll = async (): Promise<Score[]> => {
   const { rows } = await db.query<Score>(`
     SELECT * FROM scores
     ORDER BY time_seconds ASC
-    LIMIT 10
+    LIMIT 5
   `);
   return rows;
 };
