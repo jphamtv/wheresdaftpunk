@@ -1,6 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import cors from "cors";
-import gameRouter from './routes/targetsRouter';
+import targetsRouter from './routes/targetsRouter';
 import scoresRouter from './routes/scoresRouter';
 import dotenv from "dotenv";
 dotenv.config();
@@ -25,8 +25,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Routes
-app.use("/api/game", gameRouter);
-app.use("/api/scores", scoresRouter);
+app.use("/api/game", scoresRouter);
+app.use("/api/targets", targetsRouter);
 
 // Error handing
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

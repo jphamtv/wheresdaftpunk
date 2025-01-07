@@ -3,7 +3,7 @@ import { getTargets, verifyTarget } from '../controllers/targetController';
 
 const router = express.Router();
 
-router.get('/targets', getTargets);
+router.get('/', getTargets);
 router.post('/verify', verifyTarget);
 
 export default router;
