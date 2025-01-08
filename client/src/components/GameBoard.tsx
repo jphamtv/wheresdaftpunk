@@ -1,3 +1,9 @@
+import { ValidationRequest } from "../types/gameTypes";
+
+interface GameBoardProps {
+  onTargetSelect: (request: ValidationRequest) => Promise<void>;
+}
+
 export default function GameBoard() {
 
   return (

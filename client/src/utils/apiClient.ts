@@ -60,11 +60,15 @@ export const apiClient = {
     }) as Promise<T>;
   },
 
-  post: <T>(endpoint: string, data: T, config: RequestConfig = {}) => {
+  post: <TResponse, TRequest = object>(
+    endpoint: string,
+    data?: TRequest,
+    config: RequestConfig = {}
+  ) => {
     return apiClient.request(endpoint, {
       ...config,
       method: "POST",
       data,
-    }) as Promise<T>;
+    }) as Promise<TResponse>;
   },
 };

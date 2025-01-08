@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { create, getAll } from "../models/scoreModel";
+import { create, getAll, stopGameTimer, getGameTime, startGameTimer } from "../models/scoreModel";
 
 export const getScores = async (req: Request, res: Response) => {
   try {
@@ -11,26 +11,35 @@ export const getScores = async (req: Request, res: Response) => {
   }
 };
 
-export const startGame = async (req: Request, res: Response) => {
+export const startTimer = async (req: Request, res: Response) => {
   try {
-    const startTime = new Date();
-    res.json({ startTime: startTime.toISOString() });
+    const startTime = startGameTimer();
+    res.json({ success: true, startTime: startTime.toISOString() });
   } catch (err) {
-    console.error("Error starting game: ", err);
-    res.status(500).json({ message: "Error starting game" });
+    console.error("Error starting timer: ", err);
+    res.status(500).json({ message: "Error starting timer" });
   }
 };
 
-export const endGame = async (req: Request, res: Response) => {
+export const stopTimer = async (req: Request, res: Response) => {
   try {
-    const { startTime, username = 'AAA' } = req.body;
-    const endTime = new Date();
-    const gameStartTime = new Date(startTime);
+    const {time_seconds, endTime} = await stopGameTimer();
 
-    // Calculate time in seconds
-    const time_seconds = Math.floor(
-      (endTime.getTime() - gameStartTime.getTime()) / 1000
-    );
+    res.json({
+      success: true,
+      endTime: endTime.toISOString(),
+      time_seconds
+    });
+  } catch (err) {
+    console.error("Error stopping timer: ", err);
+    res.status(500).json({ message: "Error stopping timer" });
+  }
+};
+
+export const submitScore = async (req: Request, res: Response) => {
+  try {
+    const { username = 'AAA' } = req.body;
+    const {time_seconds} = await getGameTime();
 
     // Format username: capitalize and handle 3 chars
     const formattedUsername = username.toUpperCase().padEnd(3, '—').slice(0, 3);

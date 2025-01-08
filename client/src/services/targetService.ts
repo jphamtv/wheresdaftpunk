@@ -1,14 +1,18 @@
 import { apiClient } from "../utils/apiClient";
-import { Target } from "../types/gameTypes";
+import { Target, ValidationResponse } from "../types/gameTypes";
 
 export const targetService = {
-  getTargets: () => apiClient.get<Target[]>('/targets'),
+  getTargets: () => {
+    return apiClient.get<Target[]>('/targets');
+  },
 
   validateLocation: (targetId: number, xCoord: number, yCoord: number) => {
-    apiClient.post<{ correct: boolean }>('/targets/verify', {
-      targetId,
-      xCoord,
-      yCoord
-    })
+    const requestBody = {
+      id: targetId,
+      x_coord: xCoord,
+      y_coord: yCoord
+    };
+
+    return apiClient.post<ValidationResponse>('/targets/verify', requestBody);
   }
 };
