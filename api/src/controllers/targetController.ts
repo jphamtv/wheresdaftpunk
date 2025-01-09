@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
 import { getAll, getById, verifyCoordinates } from "../models/targetModel";
-import { VerifyTarget } from '../types/targetTypes';
+import { VerifyTargetApiRequest } from "../types/apiTypes";
+import { VerifyTargetDbRequest } from "../types/dbTypes";
+import { toDbVerifyTarget } from "../types/transformers";
 
 export const getTargets = async (req: Request, res: Response) => {
   try {
     const targets = await getAll();
-
-    // Only send necessary data to client (exclude exact coordinates)
-    const safeTargets = targets.map(({ id, name }) => ({ id, name }));
-    res.json(safeTargets);
+    res.json(targets);
   } catch (err) {
     console.error("Fetching error: ", err);
     res.status(500).json({ message: "Error fetching targets" });
@@ -17,13 +16,14 @@ export const getTargets = async (req: Request, res: Response) => {
 
 export const verifyTarget = async (req: Request, res: Response) => {
   try {
-    const { id, x_coord, y_coord } = req.body as VerifyTarget;
+    const apiRequest = req.body as VerifyTargetApiRequest;
+    const dbRequest = toDbVerifyTarget(apiRequest);
 
-    const result = await verifyCoordinates({ id, x_coord, y_coord });
+    const result = await verifyCoordinates(dbRequest);
 
     // Get target name for success if found
     if (result) {
-      const target = await getById(id);
+      const target = await getById(dbRequest.id);
       return res.json({
         success: true,
         message: `You found ${target.name}!`

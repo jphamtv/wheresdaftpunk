@@ -1,24 +1,25 @@
 import db from './db';
-import { Target, VerifyTarget } from '../types/targetTypes';
+import { DbTarget, VerifyTargetDbRequest } from '../types/dbTypes';
 
-export const getAll = async (): Promise<Target[]> => {
-  const { rows } = await db.query<Target>(`
-    SELECT * FROM targets
+export const getAll = async (): Promise<DbTarget[]> => {
+  const { rows } = await db.query<DbTarget>(`
+    SELECT id, name
+    FROM targets
     ORDER BY name ASC
   `);
   return rows;
 };
 
-export const getById = async (id: number): Promise<Target> => {
-  const { rows } = await db.query<Target>(`
+export const getById = async (id: number): Promise<DbTarget> => {
+  const { rows } = await db.query<DbTarget>(`
     SELECT * FROM targets WHERE id = $1`,
     [id]
   );
   return rows[0];
 };
 
-// Verify function to keep validation logic in model
-export const verifyCoordinates = async ({ id, x_coord, y_coord }: VerifyTarget): Promise<boolean> => {
+// Verify location function to keep logic in model
+export const verifyCoordinates = async ({ id, x_coord, y_coord }: VerifyTargetDbRequest): Promise<boolean> => {
   const target = await getById(id);
   if (!target) return false;
 

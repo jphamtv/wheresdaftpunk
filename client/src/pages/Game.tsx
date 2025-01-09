@@ -10,7 +10,7 @@ export default function Game() {
   const [gameStatus, setGameStatus] = useState<GameStatus>('not-started');  
   const [targets, setTargets] = useState<Target[]>([]);
   const [foundTargets, setFoundTargets] = useState<number[]>([]);
-  const [timer, setTimer] = useState('');
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -19,12 +19,27 @@ export default function Game() {
     handleGameStart();
   }, []);
 
+  useEffect(() => {
+    let intervalId: number;
+
+    if (gameStatus === 'in-progress') {
+      // Start client-side timer for display only
+      intervalId = window.setInterval(() => {
+        setElapsedTime(prev => prev + 1);
+      }, 1000);
+    }
+
+    return () => {
+      if (intervalId) window.clearInterval(intervalId);
+    };
+  }, [gameStatus]);
+
   const handleGameStart = async () => {
     try {
       const targets = await targetService.getTargets();
       setTargets(targets);
       setGameStatus('in-progress');
-      await scoreService.startGame();
+      await scoreService.startTimer();
     } catch (err) {
       setError('Failed to start game');
       console.error('Error starting game: ', err);
@@ -35,18 +50,18 @@ export default function Game() {
 
   const handleTargetValidation = async (request: ValidationRequest) => {
     try {
-      const { success, message } = await targetService.validateLocation(
-        request.selectedTarget,
-        request.coordinates.xCoord,
-        request.coordinates.yCoord
+      const { success, message } = await targetService.verifyLocation(
+        request.targetId,
+        request.xCoord,
+        request.yCoord
       );
 
       if (success) {
-        const updatedFoundTargets = [...foundTargets, request.selectedTarget];
+        const updatedFoundTargets = [...foundTargets, request.targetId];
         setFoundTargets(updatedFoundTargets);
 
         // Check if game is complete
-        if (updatedFoundTargets.length === foundTargets.length) {
+        if (updatedFoundTargets.length === targets.length) {
           await scoreService.stopTimer();
           setGameStatus('completed');
         }
@@ -54,16 +69,19 @@ export default function Game() {
 
       return { success, message };
     } catch (err) {
-      setError('Failed to validate target');
-      console.error('Error validating target: ', err);
-      return { success: false, message: 'Error validating target' };
+      setError('Failed to verify target');
+      console.error('Error verifying target: ', err);
+      return { success: false, message: 'Error verifying target' };
     }
   };
 
 
   const handleGameEnd = async () => {
     try {
+      const response = await scoreService.stopTimer();
       setGameStatus('completed');
+      // Use server's final time_seconds for display
+      setElapsedTime(response.timeSeconds);
     } catch (err) {
       setError('Failed to end game');
       console.error('Error ending game: ', err);
@@ -84,7 +102,7 @@ export default function Game() {
 
   return (
     <main className='container'>
-      <Header timer={timer} />
+      <Header timer={elapsedTime} />
       <SideBar targets={targets} foundTargets={foundTargets} />
       <GameBoard onClick={handleTargetValidation} />
     </main>

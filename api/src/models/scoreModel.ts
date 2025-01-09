@@ -1,5 +1,5 @@
 import db from './db';
-import { Score, NewScore } from '../types/scoreTypes';
+import { Score, NewScore } from '../types/dbTypes';
 
 interface GameTimer {
   startTime: Date;

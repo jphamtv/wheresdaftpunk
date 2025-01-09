@@ -6,11 +6,11 @@ export const targetService = {
     return apiClient.get<Target[]>('/targets');
   },
 
-  validateLocation: (targetId: number, xCoord: number, yCoord: number) => {
+  verifyLocation: (id: number, xCoord: number, yCoord: number) => {
     const requestBody = {
-      id: targetId,
-      x_coord: xCoord,
-      y_coord: yCoord
+      id,
+      xCoord,
+      yCoord
     };
 
     return apiClient.post<ValidationResponse>('/targets/verify', requestBody);

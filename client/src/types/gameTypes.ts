@@ -12,8 +12,8 @@ export interface ClickCoordinates {
 
 export interface ValidationRequest {
   id: number;
-  x_coord: number;
-  y_coord: number;
+  xCoord: number;
+  yCoord: number;
 }
 
 export interface ValidationResponse {
