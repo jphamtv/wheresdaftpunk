@@ -1,5 +1,4 @@
 export interface ApiScore {
-  id: number;
   username: string;
   timeSeconds: number;
 }

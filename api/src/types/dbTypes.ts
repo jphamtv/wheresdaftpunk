@@ -1,11 +1,4 @@
 export interface DbScore {
-  id: number;
-  username: string;
-  time_seconds: number;
-}
-
-// Used when creating a new score
-export interface CreateScore {
   username: string;
   time_seconds: number;
 }

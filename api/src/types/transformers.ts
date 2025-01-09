@@ -8,7 +8,6 @@ export const toDbVerifyTarget = (apiTarget: VerifyTargetApiRequest): VerifyTarge
 });
 
 export const toApiScore = (dbScore: DbScore): ApiScore => ({
-  id: dbScore.id,
   username: dbScore.username,
   timeSeconds: dbScore.time_seconds
 });
