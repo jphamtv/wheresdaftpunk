@@ -16,10 +16,17 @@ export const getScores = async (req: Request, res: Response) => {
 export const startTimer = async (req: Request, res: Response) => {
   try {
     startGameTimer();
-    res.sendStatus(204);
+    res.json({ 
+      success: true,
+      message: "Timer started",
+      startTime: Date.now() // Could be useful for validation/debugging
+    });
   } catch (err) {
     console.error("Error starting timer: ", err);
-    res.status(500).json({ message: "Error starting timer" });
+    res.status(500).json({ 
+      success: false,
+      message: "Error starting timer" 
+    });
   }
 };
 

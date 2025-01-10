@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 // import SideBar from '../components/SideBar';
 // import GameBoard from '../components/GameBoard';
@@ -15,6 +15,8 @@ interface Feedback {
 
 export default function Game() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const scores = location.state?.scores || [];
   const [gameStatus, setGameStatus] = useState<GameStatus>('not-started');  
   const [targets, setTargets] = useState<Target[]>([]);
   const [foundTargets, setFoundTargets] = useState<number[]>([]);
@@ -46,7 +48,6 @@ export default function Game() {
   const handleGameStart = async () => {
     try {
       const targets = await targetService.getTargets();
-      console.log(targets)
       setTargets(targets);
       setGameStatus('in-progress');
       await scoreService.startTimer();
@@ -120,7 +121,7 @@ export default function Game() {
 
   return (
     <main className={styles.container}>
-      <Header timer={elapsedTime} />
+      <Header timer={elapsedTime} scores={scores} />
       {feedback && (
         <div
           className={`${styles.feedbackBanner} ${
