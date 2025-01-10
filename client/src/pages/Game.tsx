@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import SideBar from '../components/SideBar';
-import GameBoard from '../components/GameBoard';
+// import SideBar from '../components/SideBar';
+// import GameBoard from '../components/GameBoard';
 import { GameStatus, Target, ValidationRequest } from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
@@ -46,6 +46,7 @@ export default function Game() {
   const handleGameStart = async () => {
     try {
       const targets = await targetService.getTargets();
+      console.log(targets)
       setTargets(targets);
       setGameStatus('in-progress');
       await scoreService.startTimer();
@@ -129,8 +130,8 @@ export default function Game() {
           {feedback.message}
         </div>
       )}
-      <SideBar targets={targets} foundTargets={foundTargets} />
-      <GameBoard onClick={handleTargetValidation} />
+      {/* <SideBar targets={targets} foundTargets={foundTargets} />
+      <GameBoard onClick={handleTargetValidation} /> */}
 
       {gameStatus === 'completed' && (
         <>
