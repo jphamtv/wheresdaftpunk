@@ -6,6 +6,7 @@ import GameBoard from '../components/GameBoard';
 import { GameStatus, Target, ValidationRequest } from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
+import styles from './Game.module.css';
 
 interface Feedback {
   message: string;
@@ -117,11 +118,13 @@ export default function Game() {
   if (error) return <div>{error}</div>;
 
   return (
-    <main className='container'>
+    <main className={styles.container}>
       <Header timer={elapsedTime} />
       {feedback && (
         <div
-          className={`feedback-banner ${feedback.isSuccess ? 'success' : 'error'}`}
+          className={`${styles.feedbackBanner} ${
+            feedback.isSuccess ? styles.success : styles.error
+          }`}
         >
           {feedback.message}
         </div>
@@ -130,21 +133,24 @@ export default function Game() {
       <GameBoard onClick={handleTargetValidation} />
 
       {gameStatus === 'completed' && (
-        <div className="completion-modal">
-          <h2>Congratulations!</h2>
-          <p>You found all the artists in {elapsedTime} seconds!</p>
-          <form onSubmit={handleScoreSubmit}>
-            <input
-              type="text"
-              name="username"
-              maxLength={3}
-              placeholder='Enter 3 initials'
-              required
-              autoFocus
-            />
-            <button type="submit">Submit Score</button>
-          </form>
-        </div>
+        <>
+          <div className={styles.modalOverlay} />
+          <div className={styles.completionModal}>
+            <h2>Congratulations!</h2>
+            <p>You found all the artists in {elapsedTime} seconds!</p>
+            <form onSubmit={handleScoreSubmit}>
+              <input
+                type="text"
+                name="username"
+                maxLength={3}
+                placeholder='Enter 3 initials'
+                required
+                autoFocus
+              />
+              <button type="submit">Submit Score</button>
+            </form>
+          </div>
+        </>
       )}
     </main>
   );

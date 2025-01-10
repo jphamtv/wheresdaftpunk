@@ -1,10 +1,99 @@
+/* Game.module.css */
 .container {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main";
   grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
   height: 100vh;
+  width: 100%;
+  position: relative;
 }
 
-.header { grid-column: 1 / -1; }
-.sidebar { grid-column: 1 / 2; }
-.gameBoard { grid-column: 2 / -1; }
+.feedbackBanner {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+  z-index: 50;
+  transition: opacity 150ms ease-in-out;
+}
+
+.success {
+  background-color: #4ade80;
+  color: #052e16;
+}
+
+.error {
+  background-color: #f87171;
+  color: #450a0a;
+}
+
+.completionModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  z-index: 100;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+}
+
+.completionModal h2 {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.completionModal p {
+  margin-bottom: 24px;
+  color: #4b5563;
+}
+
+.completionModal form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.completionModal input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 120px;
+  margin: 0 auto;
+}
+
+.completionModal button {
+  padding: 8px 16px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+
+.completionModal button:hover {
+  background-color: #1d4ed8;
+}
