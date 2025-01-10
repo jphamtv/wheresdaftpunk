@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
+import { Request, Response, RequestHandler } from "express";
 import { getAll, getById, verifyCoordinates } from "../models/targetModel";
 import { VerifyTargetApiRequest } from "../types/apiTypes";
-import { VerifyTargetDbRequest } from "../types/dbTypes";
 import { toDbVerifyTarget } from "../types/transformers";
 
 export const getTargets = async (req: Request, res: Response) => {
@@ -14,7 +13,7 @@ export const getTargets = async (req: Request, res: Response) => {
   }
 };
 
-export const verifyTarget = async (req: Request, res: Response) => {
+export const verifyTarget = (async (req: Request, res: Response) => {
   try {
     const apiRequest = req.body as VerifyTargetApiRequest;
     const dbRequest = toDbVerifyTarget(apiRequest);
@@ -38,4 +37,4 @@ export const verifyTarget = async (req: Request, res: Response) => {
     console.error("Error verifying target: ", err);
     res.status(500).json({ message: "Error verifying target" });
   }
-};
+}) as RequestHandler;
