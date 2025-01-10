@@ -2,15 +2,18 @@ const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export const apiClient = {
-  get: async (endpoint: string) => {
+  get: async <TResponse>(endpoint: string) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json();
+    return response.json() as Promise<TResponse>;
   },
 
-  post: async (endpoint: string, data?: unknown) => {
+  post: async <TResponse, TRequest = unknown>(
+    endpoint: string, 
+    data?: TRequest
+  ) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       method: 'POST',
       headers: {
@@ -21,7 +24,7 @@ export const apiClient = {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json();
+    return response.json() as Promise<TResponse>;
   },
 };
 
