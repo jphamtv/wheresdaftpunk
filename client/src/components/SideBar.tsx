@@ -3,7 +3,7 @@ import styles from './SideBar.module.css'
 
 interface SideBarProps {
   targets: Target[];
-  foundTargets: Target[];
+  foundTargets: number[];
 }
 
 export default function SideBar({targets, foundTargets}: SideBarProps) {

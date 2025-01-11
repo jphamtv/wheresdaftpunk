@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
-// import GameBoard from '../components/GameBoard';
+import GameBoard from '../components/GameBoard';
 import { GameStatus, Target, ValidationRequest } from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
@@ -132,7 +132,7 @@ export default function Game() {
         </div>
       )}
       <SideBar targets={targets} foundTargets={foundTargets} />
-      {/* <GameBoard onClick={handleTargetValidation} /> */}
+      <GameBoard onClick={handleTargetValidation} />
 
       {gameStatus === 'completed' && (
         <>
