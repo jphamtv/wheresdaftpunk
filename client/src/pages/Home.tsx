@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { scoreService } from '../services/scoreService';
 import { Score } from '../types/gameTypes';
 import ScoreBoard from '../components/ScoreBoard';
+import daftPunkImage from '../assets/daft_punk_helmets.png';
+import styles from './Home.module.css';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -35,11 +37,15 @@ export default function Home() {
   if (error) return <div>{error}</div>;
 
   return (
-    <main>
-      <h1>Where's Daft Punk?</h1>
-      <img src="" alt="" />
-      <button onClick={handleStartGame}>Find Daft Punk</button>
-      <ScoreBoard scores={ scores } />
+    <main className={styles.container}>
+      <div className={styles.titleContainer}>
+        <h1 className={styles.title}>Where's Daft Punk?</h1>
+        <img src={daftPunkImage} alt="Daft Punk helmets" />
+      </div>
+      <button onClick={handleStartGame}>Start Searching</button>
+      <div>
+        <ScoreBoard scores={ scores } />
+      </div>
     </main>
   );
 }

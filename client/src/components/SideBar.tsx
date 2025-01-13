@@ -2,14 +2,15 @@ import { Target } from '../types/gameTypes';
 import styles from './SideBar.module.css'
 
 interface SideBarProps {
+  className: string;
   targets: Target[];
   foundTargets: number[];
 }
 
-export default function SideBar({targets, foundTargets}: SideBarProps) {
+export default function SideBar({ className, targets, foundTargets}: SideBarProps) {
 
   return (
-    <aside className={styles.container}>
+    <aside className={className}>
       <h2>Artists to find</h2>
       {targets.map(target => (
         <div key={target.id} className="artistName">{target.name}</div>

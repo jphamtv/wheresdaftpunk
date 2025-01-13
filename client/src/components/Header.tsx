@@ -1,17 +1,21 @@
+import { Link } from 'react-router-dom';
 import { Score } from '../types/gameTypes';
 import styles from './Header.module.css'
 
 interface HeaderProps {
+  className: string;
   timer: number;
   scores: Score[];
 }
 
-export default function Header({timer, scores}: HeaderProps) {
+export default function Header({ className, timer, scores}: HeaderProps) {
   const topScore = scores && scores.length > 0 ? scores[0] : null;
 
   return (
-    <header className={styles.container}>
-      <h1>Where's Daft Punk?</h1>
+    <header className={`${className} ${styles.header}`}>
+      <Link to={'/'}>
+        <h1 className={styles.logo}>Where's Daft Punk?</h1>
+      </Link>
       <div className={styles.timer}>{timer}</div>
       <div className={styles.topScore}>
         {topScore && (

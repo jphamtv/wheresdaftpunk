@@ -1,7 +1,12 @@
-.container {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.logo {
+  color: #000;
+  text-decoration: none;
 }
 
 .timer {

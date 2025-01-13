@@ -1,8 +1,5 @@
-.container {
+.searchArea {
   max-width: 100%;
-  margin: 0 auto; 
-  padding: 20px; 
-  overflow-x: auto;
 }
 
 .imageContainer { 

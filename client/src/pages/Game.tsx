@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
-import GameBoard from '../components/GameBoard';
+import SearchArea from '../components/SearchArea';
 import { GameStatus, Target, ValidationRequest } from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
@@ -121,7 +121,7 @@ export default function Game() {
 
   return (
     <main className={styles.container}>
-      <Header timer={elapsedTime} scores={scores} />
+      <Header className={styles.header} timer={elapsedTime} scores={scores} />
       {feedback && (
         <div
           className={`${styles.feedbackBanner} ${
@@ -131,8 +131,12 @@ export default function Game() {
           {feedback.message}
         </div>
       )}
-      <SideBar targets={targets} foundTargets={foundTargets} />
-      <GameBoard onClick={handleTargetValidation} />
+      <SideBar
+        className={styles.sidebar}
+        targets={targets}
+        foundTargets={foundTargets}
+      />
+      <SearchArea className={styles.searchArea} onTargetSelect={handleTargetValidation} />
 
       {gameStatus === 'completed' && (
         <>

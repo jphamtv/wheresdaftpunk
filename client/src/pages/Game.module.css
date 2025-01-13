@@ -3,12 +3,25 @@
   display: grid;
   grid-template-areas:
     "header header"
-    "sidebar main";
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr;
+    "sidebar searchArea";
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 80px 1fr;
   height: 100vh;
   width: 100%;
   position: relative;
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.searchArea {
+  grid-area: searchArea;
+  overflow: auto;
 }
 
 .feedbackBanner {
