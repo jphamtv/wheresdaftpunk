@@ -136,7 +136,12 @@ export default function Game() {
         targets={targets}
         foundTargets={foundTargets}
       />
-      <SearchArea className={styles.searchArea} onTargetSelect={handleTargetValidation} />
+      <SearchArea
+        className={styles.searchArea}
+        onTargetSelect={handleTargetValidation}
+        targets={targets}
+        foundTargets={foundTargets}
+      />
 
       {gameStatus === 'completed' && (
         <>

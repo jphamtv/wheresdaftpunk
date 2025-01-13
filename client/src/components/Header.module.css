@@ -10,9 +10,10 @@
 }
 
 .timer {
-  background-color: black;
+  font-size: 1.5rem;
 }
 
 .topScore {
-  background-color: black;
+  display: flex;
+  font-size: 1.5rem;
 }

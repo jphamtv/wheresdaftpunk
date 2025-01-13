@@ -20,6 +20,7 @@ export default function Header({ className, timer, scores}: HeaderProps) {
       <div className={styles.topScore}>
         {topScore && (
           <>
+            <div>Top Score:</div>
             <div>{topScore.username}</div>
             <div>{topScore.timeSeconds}</div>
           </>
