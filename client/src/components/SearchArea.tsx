@@ -25,15 +25,18 @@ export default function SearchArea({
     if (!container) return;
 
     const rect = image.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
 
-    // Get click coordinates relative to the image
-    const x = e.clientX - rect.left + container.scrollLeft;
-    const y = e.clientY - rect.top + container.scrollTop;
+    // Get click coordinates relative to the visible viewport
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+
+    // Add scroll offset to get the true position within the image
+    const xWithScroll = x + container.scrollLeft;
+    const yWithScroll = y + container.scrollTop;
 
     // Convert to percentages and multiple by 100 for integers
-    const xCoord = (x / image.width) * 10000; 
-    const yCoord = (y / image.height) * 10000;
+    const xCoord = Math.round((xWithScroll / image.width) * 10000); 
+    const yCoord = Math.round((yWithScroll / image.height) * 10000);
     
     setSelectedCoords([xCoord, yCoord]);
   };
