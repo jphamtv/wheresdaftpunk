@@ -7,22 +7,15 @@ dotenv.config();
 
 const app: Express = express();
 
+// Updated CORS setup to allow both client ports
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Updated CORS setup to allow both client ports
-const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? process.env.FRONTEND_URL
-      : "http://localhost:5173",
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
 
 // Routes
 app.use("/api/game", scoresRouter);

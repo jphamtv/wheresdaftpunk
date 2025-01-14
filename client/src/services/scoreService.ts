@@ -10,5 +10,5 @@ export const scoreService = {
 
   stopTimer: () => apiClient.post<StopTimerResponse>('/game/stop-timer'),
 
-  submitScore: (username: string) => apiClient.post('/game/submit-score', username)
+  submitScore: (username: string) => apiClient.post('/game/submit-score', { username })
 };
