@@ -7,37 +7,46 @@ interface SelectionBoxProps {
   targets: Target[];
   foundTargets: number[];
   onSelect: (targetId: number) => void;
+  containerRef: React.RefObject<HTMLDivElement>;
 }
 
 export default function SelectionBox({
   coords,
   targets,
   foundTargets,
-  onSelect
+  onSelect,
+  containerRef
 }: SelectionBoxProps) {
   const boxRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ left: 0, top: 0 });
+  // const [position, setPosition] = useState({ x: 0, y: 0, isRight: true });
   const remainingTargets = targets.filter(target =>
     !foundTargets.includes(target.id)
   );
 
   useEffect(() => {
-    if (coords.length === 0 || !boxRef.current) return;
-
     const box = boxRef.current;
-    const rect = box.getBoundingClientRect();
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
+    const container = containerRef.current;
+    if (!box || !container || coords.length === 0) return;
 
-    // Calculate if box would overflow right or bottom
-    const wouldOverflowRight = (coords[0] / 100 * windowWidth) + rect.width > windowWidth;
-    const wouldOverflowBottom = (coords[1] / 100 * windowHeight) + rect.height > windowHeight;
+    const containerRect = container.getBoundingClientRect();
+    const boxRect = box.getBoundingClientRect();
 
-    setPosition({
-      left: wouldOverflowRight ? coords[0] - 100 : coords[0],
-      top: wouldOverflowBottom ? coords[1] - 100 : coords[1]
-    });
-  }, [coords]);
+    // Convert percentage coordinates to pixels
+    const x = (coords[0] / 10000) * containerRect.width;
+    const y = (coords[1] / 10000) * containerRect.height;
+
+    // Determine if click is in the left or right half of container
+    const showOnLeft = x > containerRect.width / 2;
+
+    // Position the box
+    box.style.position = 'absolute';
+    box.style.left = `${showOnLeft ? x - boxRect.width - 40 : x + 40}px`;
+    
+    // Ensure the box stays within the vertical bounds
+    let topPosition = y - (boxRect.height / 2);
+    topPosition = Math.max(0, Math.min(topPosition, containerRect.height - boxRect.height));
+    box.style.top = `${topPosition}px`;
+  }, [coords, containerRef]);
 
   if (coords.length === 0 || remainingTargets.length === 0) {
     return null;
@@ -47,10 +56,6 @@ export default function SelectionBox({
     <div
       ref={boxRef}
       className={styles.selectionBox}
-      style={{
-        left: `${coords[0]}%`,
-        top: `${coords[1]}%`
-      }}
     >
       <ul className={styles.targetList}>
         {remainingTargets.map(target => (

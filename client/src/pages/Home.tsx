@@ -40,7 +40,11 @@ export default function Home() {
     <main className={styles.container}>
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Where's Daft Punk?</h1>
-        <img src={daftPunkImage} alt="Daft Punk helmets" />
+        <img
+          className={styles.daftPunkImage}
+          src={daftPunkImage}
+          alt="Daft Punk helmets"
+        />
       </div>
       <button onClick={handleStartGame}>Start Searching</button>
       <div>

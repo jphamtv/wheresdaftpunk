@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Target, ValidationRequest } from "../types/gameTypes";
 import SelectionBox from './SelectionBox'
 import styles from './SearchArea.module.css'
@@ -17,18 +17,23 @@ export default function SearchArea({
   foundTargets
 }: SearchAreaProps) {
   const [selectedCoords, setSelectedCoords] = useState<number[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLImageElement>) => {
     const image = e.currentTarget;
+    const container = containerRef.current;
+    if (!container) return;
+
     const rect = image.getBoundingClientRect();
-    const scrollLeft = e.currentTarget.parentElement?.scrollLeft || 0;
-    const scrollTop = e.currentTarget.parentElement?.scrollTop || 0;
+    const containerRect = container.getBoundingClientRect();
 
-    const x = e.clientX - rect.left + scrollLeft;
-    const y = e.clientY - rect.top + scrollTop;
+    // Get click coordinates relative to the image
+    const x = e.clientX - rect.left + container.scrollLeft;
+    const y = e.clientY - rect.top + container.scrollTop;
 
-    const xCoord = (x / image.width) * 100; // Convert percentage to integer
-    const yCoord = (y / image.height) * 100;
+    // Convert to percentages and multiple by 100 for integers
+    const xCoord = (x / image.width) * 10000; 
+    const yCoord = (y / image.height) * 10000;
     
     setSelectedCoords([xCoord, yCoord]);
   };
@@ -43,13 +48,16 @@ export default function SearchArea({
   };
 
   return (
-    <div className={`${className} ${styles.searchArea}`}>
-      <SelectionBox
-        coords={selectedCoords}
-        targets={targets}
-        foundTargets={foundTargets}
-        onSelect={handleTargetSelect}
-      />
+    <div ref={containerRef} className={`${className} ${styles.searchArea}`}>
+      {selectedCoords.length > 0 && (
+        <SelectionBox
+          coords={selectedCoords}
+          targets={targets}
+          foundTargets={foundTargets}
+          onSelect={handleTargetSelect}
+          containerRef={containerRef}
+        />
+      )}
       <div className={styles.imageContainer}>
         <img
           className={styles.img}
