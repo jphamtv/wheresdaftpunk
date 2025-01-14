@@ -24,15 +24,16 @@ export default function SearchArea({
     const container = containerRef.current;
     if (!container) return;
 
-    const rect = image.getBoundingClientRect();
+    // Get container's position relative to viewport
+    const containerRect = container.getBoundingClientRect();
 
-    // Get click coordinates relative to the visible viewport
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    // Calculate click position relative to container's viewport position
+    const clickX = e.clientX - containerRect.left;
+    const clickY = e.clientY - containerRect.top;
 
-    // Add scroll offset to get the true position within the image
-    const xWithScroll = x + container.scrollLeft;
-    const yWithScroll = y + container.scrollTop;
+    // Add scroll offset to get true position within scrollable area
+    const xWithScroll = clickX + container.scrollLeft;
+    const yWithScroll = clickY + container.scrollTop;
 
     // Convert to percentages and multiple by 100 for integers
     const xCoord = Math.round((xWithScroll / image.width) * 10000); 
