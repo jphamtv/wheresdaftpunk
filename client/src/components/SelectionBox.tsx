@@ -38,13 +38,24 @@ export default function SelectionBox({
     // Determine if click is in the left or right half of container
     const showOnLeft = x > containerRect.width / 2;
 
-    // Position the box
+    // Position the box horizontally
     box.style.position = 'absolute';
     box.style.left = `${showOnLeft ? x - boxRect.width - 40 : x + 40}px`;
-    
-    // Ensure the box stays within the vertical bounds
+
+    // Account for scroll position when calculating vertical position
     let topPosition = y - (boxRect.height / 2);
-    topPosition = Math.max(0, Math.min(topPosition, containerRect.height - boxRect.height));
+
+    // Get the visible area boundaries relative to container
+    const visibleTop = container.scrollTop;
+    const visibleBottom = visibleTop + containerRect.height; 
+    
+    // Adjust topPosition to stay within visible area
+    if (topPosition < visibleTop) {
+        topPosition = visibleTop + 10; // 10px padding from top
+    } else if (topPosition + boxRect.height > visibleBottom) {
+        topPosition = visibleBottom - boxRect.height - 10; // 10px padding from bottom
+    }
+    
     box.style.top = `${topPosition}px`;
   }, [coords, containerRef]);
 
