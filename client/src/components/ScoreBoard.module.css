@@ -1,8 +1,24 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  border: 2px solid #000;
+  width: 500px;
 }
 
 .scoreContainer {
   display: flex;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 0;
+  text-decoration: underline;
+  text-underline-offset: 10px;
+}
+
+.title,
+.username,
+.score {
+  font-size: 2rem;
 }

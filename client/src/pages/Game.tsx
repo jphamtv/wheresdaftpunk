@@ -153,6 +153,7 @@ export default function Game() {
               <input
                 type="text"
                 name="username"
+                pattern="[A-Za-z]{3}"
                 maxLength={3}
                 placeholder='Enter 3 initials'
                 required

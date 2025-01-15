@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Score } from '../types/gameTypes';
+import { formatTime } from '../utils/timeFormat';
 import styles from './Header.module.css'
 
 interface HeaderProps {
@@ -16,13 +17,13 @@ export default function Header({ className, timer, scores}: HeaderProps) {
       <Link to={'/'}>
         <h1 className={styles.logo}>Where's Daft Punk?</h1>
       </Link>
-      <div className={styles.timer}>{timer}</div>
+      <div className={styles.timer}>{formatTime(timer)}</div>
       <div className={styles.topScore}>
         {topScore && (
           <>
             <div>Top Score:</div>
             <div>{topScore.username}</div>
-            <div>{topScore.timeSeconds}</div>
+            <div>{formatTime(topScore.timeSeconds)}</div>
           </>
         )}
       </div>
