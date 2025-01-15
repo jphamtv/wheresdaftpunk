@@ -36,7 +36,7 @@ export default function SelectionBox({
     const showOnLeft = cursorPos.x > containerRect.width / 2;
     const xOffset = showOnLeft ? -boxRect.width - 20 : 20;
     
-    box.style.position = 'fixed'; // Changed to fixed positioning
+    box.style.position = 'fixed'; 
     box.style.left = `${cursorPos.x + xOffset}px`;
     
     // Vertical positioning with bounds checking

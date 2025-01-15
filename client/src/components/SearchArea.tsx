@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Target, ValidationRequest } from "../types/gameTypes";
+import { Target, ValidationRequest, ValidationResponse } from "../types/gameTypes";
 import SelectionBox from './SelectionBox'
 import styles from './SearchArea.module.css'
 
@@ -7,7 +7,7 @@ interface SearchAreaProps {
   className: string;
   targets: Target[];
   foundTargets: number[];
-  onTargetSelect: (request: ValidationRequest) => Promise<void>;
+  onTargetSelect: (request: ValidationRequest) => Promise<ValidationResponse>;
 }
 
 export default function SearchArea({
