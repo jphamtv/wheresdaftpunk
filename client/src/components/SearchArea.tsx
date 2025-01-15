@@ -17,6 +17,7 @@ export default function SearchArea({
   foundTargets
 }: SearchAreaProps) {
   const [selectedCoords, setSelectedCoords] = useState<number[]>([]);
+  const [cursorPos, setCursorPos] = useState<{x: number, y: number} | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLImageElement>) => {
@@ -24,41 +25,16 @@ export default function SearchArea({
     const container = containerRef.current;
     if (!container) return;
 
-    // Get container's position relative to viewport
+    // Store cursor position for SelectionBox
+    setCursorPos({ x: e.clientX, y: e.clientY });
+
+    // Keep existing coordinate calculation for validation
     const containerRect = container.getBoundingClientRect();
-
-    console.log('Measurements:', {
-      // Click positions
-      clientX: e.clientX,
-      clientY: e.clientY,
-      
-      // Container viewport measurements
-      containerTop: containerRect.top,
-      containerBottom: containerRect.bottom,
-      containerHeight: containerRect.height,
-      
-      // Scroll positions
-      scrollTop: container.scrollTop,
-      scrollHeight: container.scrollHeight,
-      
-      // Image dimensions
-      imageHeight: image.height,
-      imageNaturalHeight: image.naturalHeight,
-      
-      // Window measurements
-      windowHeight: window.innerHeight
-    });
-
-    // Calculate click position relative to container's viewport position
     const clickX = e.clientX - containerRect.left;
     const clickY = e.clientY - containerRect.top;
-
-    // Add scroll offset to get true position within scrollable area
     const xWithScroll = clickX + container.scrollLeft;
     const yWithScroll = clickY + container.scrollTop;
-
-    // Convert to percentages and multiple by 100 for integers
-    const xCoord = Math.round((xWithScroll / image.width) * 10000); 
+    const xCoord = Math.round((xWithScroll / image.width) * 10000);
     const yCoord = Math.round((yWithScroll / image.height) * 10000);
     
     setSelectedCoords([xCoord, yCoord]);
@@ -71,13 +47,15 @@ export default function SearchArea({
       yCoord: selectedCoords[1]
     });
     setSelectedCoords([]);
+    setCursorPos(null);
   };
 
   return (
     <div ref={containerRef} className={`${className} ${styles.searchArea}`}>
-      {selectedCoords.length > 0 && (
+      {selectedCoords.length > 0 && cursorPos && (
         <SelectionBox
           coords={selectedCoords}
+          cursorPos={cursorPos}
           targets={targets}
           foundTargets={foundTargets}
           onSelect={handleTargetSelect}

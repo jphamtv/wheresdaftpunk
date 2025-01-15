@@ -46,7 +46,7 @@ export default function Home() {
           alt="Daft Punk helmets"
         />
       </div>
-      <button onClick={handleStartGame}>Start Searching</button>
+      <button onClick={handleStartGame}>Find the Robots</button>
       <div>
         <ScoreBoard scores={ scores } />
       </div>

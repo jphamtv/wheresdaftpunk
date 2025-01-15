@@ -4,6 +4,7 @@ import styles from './SelectionBox.module.css'
 
 interface SelectionBoxProps {
   coords: number[];
+  cursorPos: { x: number; y: number };
   targets: Target[];
   foundTargets: number[];
   onSelect: (targetId: number) => void;
@@ -12,13 +13,13 @@ interface SelectionBoxProps {
 
 export default function SelectionBox({
   coords,
+  cursorPos,
   targets,
   foundTargets,
   onSelect,
   containerRef
 }: SelectionBoxProps) {
   const boxRef = useRef<HTMLDivElement>(null);
-  // const [position, setPosition] = useState({ x: 0, y: 0, isRight: true });
   const remainingTargets = targets.filter(target =>
     !foundTargets.includes(target.id)
   );
@@ -26,39 +27,26 @@ export default function SelectionBox({
   useEffect(() => {
     const box = boxRef.current;
     const container = containerRef.current;
-    if (!box || !container || coords.length === 0) return;
+    if (!box || !container) return;
 
-    const containerRect = container.getBoundingClientRect();
     const boxRect = box.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
 
-    // Convert back to pixel position within container
-    const x = (coords[0] / 10000) * containerRect.width;
+    // Position box to the right or left of cursor
+    const showOnLeft = cursorPos.x > containerRect.width / 2;
+    const xOffset = showOnLeft ? -boxRect.width - 20 : 20;
     
-    // Instead of scaling y-coordinate, calculate directly from percentage
-    const y = (coords[1] / 10000) * containerRect.height;
-
-    // Determine if click is in the left or right half of container
-    const showOnLeft = x > containerRect.width / 2;
+    box.style.position = 'fixed'; // Changed to fixed positioning
+    box.style.left = `${cursorPos.x + xOffset}px`;
     
-    // Position the box horizontally
-    box.style.position = 'absolute';
-    box.style.left = `${showOnLeft ? x - boxRect.width - 40 : x + 40}px`;
-
-    // Calculate box position
-    const scrollTop = container.scrollTop;
+    // Vertical positioning with bounds checking
+    let topPos = cursorPos.y - (boxRect.height / 2);
+    const minTop = 10;
+    const maxTop = window.innerHeight - boxRect.height - 10;
+    topPos = Math.max(minTop, Math.min(maxTop, topPos));
     
-    // Center the box vertically on the click position
-    let topPosition = y - (boxRect.height / 2);
-    
-    // Adjust for scroll
-    topPosition += scrollTop;
-    
-    // Ensure box stays within container bounds
-    const maxTop = containerRect.height - boxRect.height;
-    topPosition = Math.max(0, Math.min(maxTop, topPosition));
-    
-    box.style.top = `${topPosition}px`;
-  }, [coords, containerRef]);
+    box.style.top = `${topPos}px`;
+  }, [cursorPos, containerRef]);
 
   if (coords.length === 0 || remainingTargets.length === 0) {
     return null;
