@@ -18,15 +18,9 @@ export default function Header({ className, timer, scores}: HeaderProps) {
         <h1 className={styles.logo}>Where's Daft Punk?</h1>
       </Link>
       <div className={styles.timer}>{formatTime(timer)}</div>
-      <div className={styles.topScore}>
-        {topScore && (
-          <>
-            <div>Top Score:</div>
-            <div>{topScore.username}</div>
-            <div>{formatTime(topScore.timeSeconds)}</div>
-          </>
-        )}
-      </div>
+      {topScore && (
+          <div className={styles.topScore}>{`Top Score: ${topScore.username} ${formatTime(topScore.timeSeconds)}`}</div>
+      )}
     </header>
   );
 }
