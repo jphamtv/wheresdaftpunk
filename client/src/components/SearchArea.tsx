@@ -27,6 +27,28 @@ export default function SearchArea({
     // Get container's position relative to viewport
     const containerRect = container.getBoundingClientRect();
 
+    console.log('Measurements:', {
+      // Click positions
+      clientX: e.clientX,
+      clientY: e.clientY,
+      
+      // Container viewport measurements
+      containerTop: containerRect.top,
+      containerBottom: containerRect.bottom,
+      containerHeight: containerRect.height,
+      
+      // Scroll positions
+      scrollTop: container.scrollTop,
+      scrollHeight: container.scrollHeight,
+      
+      // Image dimensions
+      imageHeight: image.height,
+      imageNaturalHeight: image.naturalHeight,
+      
+      // Window measurements
+      windowHeight: window.innerHeight
+    });
+
     // Calculate click position relative to container's viewport position
     const clickX = e.clientX - containerRect.left;
     const clickY = e.clientY - containerRect.top;

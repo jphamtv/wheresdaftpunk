@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Target } from '../types/gameTypes';
 import styles from './SelectionBox.module.css'
 
@@ -31,30 +31,31 @@ export default function SelectionBox({
     const containerRect = container.getBoundingClientRect();
     const boxRect = box.getBoundingClientRect();
 
-    // Convert percentage coordinates to pixels
+    // Convert back to pixel position within container
     const x = (coords[0] / 10000) * containerRect.width;
+    
+    // Instead of scaling y-coordinate, calculate directly from percentage
     const y = (coords[1] / 10000) * containerRect.height;
 
     // Determine if click is in the left or right half of container
     const showOnLeft = x > containerRect.width / 2;
-
+    
     // Position the box horizontally
     box.style.position = 'absolute';
     box.style.left = `${showOnLeft ? x - boxRect.width - 40 : x + 40}px`;
 
-    // Account for scroll position when calculating vertical position
-    let topPosition = y - (boxRect.height / 2);
-
-    // Get the visible area boundaries relative to container
-    const visibleTop = container.scrollTop;
-    const visibleBottom = visibleTop + containerRect.height; 
+    // Calculate box position
+    const scrollTop = container.scrollTop;
     
-    // Adjust topPosition to stay within visible area
-    if (topPosition < visibleTop) {
-        topPosition = visibleTop + 10; // 10px padding from top
-    } else if (topPosition + boxRect.height > visibleBottom) {
-        topPosition = visibleBottom - boxRect.height - 10; // 10px padding from bottom
-    }
+    // Center the box vertically on the click position
+    let topPosition = y - (boxRect.height / 2);
+    
+    // Adjust for scroll
+    topPosition += scrollTop;
+    
+    // Ensure box stays within container bounds
+    const maxTop = containerRect.height - boxRect.height;
+    topPosition = Math.max(0, Math.min(maxTop, topPosition));
     
     box.style.top = `${topPosition}px`;
   }, [coords, containerRef]);
