@@ -11,13 +11,11 @@
 }
 
 .timer {
-  font-size: 2rem;
-  text-decoration: underline;
-  text-underline-offset: 10px;
+  font-size: 2.25rem;
 }
 
 .topScore {
   display: flex;
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
 }

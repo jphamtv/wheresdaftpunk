@@ -5,7 +5,7 @@
     "header header"
     "sidebar searchArea";
   grid-template-columns: 250px 1fr;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 120px 1fr;
   height: 100vh;
   width: 100%;
   position: relative;
@@ -22,6 +22,7 @@
 .searchArea {
   grid-area: searchArea;
   overflow: auto;
+  border: 1px solid #fff;
 }
 
 .feedbackBanner {

@@ -11,7 +11,7 @@ export default function SideBar({ className, targets, foundTargets}: SideBarProp
 
   return (
     <aside className={className}>
-      <h2 className={styles.title}>artists to find:</h2>
+      <h2 className={styles.title}>Artists to find</h2>
       {targets.map(target => (
         <div key={target.id} className={styles.artistName}>{target.name}</div>
       ))
