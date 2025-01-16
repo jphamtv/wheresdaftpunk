@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .titleContainer {
@@ -12,8 +12,10 @@
 }
 
 .title {
-  font-size: 3rem;
-  margin: 4rem 0 0;
+  font-size: 4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 5rem 0 2rem;
 }
 
 .daftPunkImage {

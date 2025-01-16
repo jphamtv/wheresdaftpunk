@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap');
 
 :root {
-  --font-share: 'Share Tech Mono', monospace;
+  --font-space: 'Space Mono', monospace;
   --font-vt323: 'VT323', monospace;
   
-  font-family: 'VT323', monospace;
+  font-family: 'Space Mono', monospace;
   font-size: 1.2rem;
   line-height: 1.5;
   font-weight: 400;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 
   color-scheme: light dark;
-  color: #333;
-  background-color: #fff;
+  color: #ffffff;
+  background-color: #000000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,19 +35,19 @@ a {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #fff;
   padding: 0.6em 1.2em;
-  font-size: 1.2em;
-  font-weight: 500;
-  font-family: 'VT323', monospace;
+  font-size: 1.25em;
+  font-weight: 400;
+  font-family: 'Space Mono', monospace;
   text-transform: uppercase;
 
-  background-color: #1a1a1a;
+  background-color: #000000;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #64afff;
 }
 button:focus,
 button:focus-visible {
