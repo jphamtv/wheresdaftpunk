@@ -13,7 +13,7 @@ export default function SideBar({ className, targets, foundTargets}: SideBarProp
     <aside className={className}>
       <h2 className={styles.title}>Artists to find</h2>
       {targets.map(target => (
-        <div key={target.id} className={styles.artistName}>{target.name}</div>
+        <div key={target.id} className={`${styles.artistName} ${foundTargets.includes(target.id) ? styles.found : ''}`}>{target.name}</div>
       ))
       }
     </aside>
