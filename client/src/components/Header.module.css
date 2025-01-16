@@ -5,15 +5,19 @@
 }
 
 .logo {
-  color: #000;
+  color: #ffffff;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .timer {
   font-size: 2rem;
+  text-decoration: underline;
+  text-underline-offset: 10px;
 }
 
 .topScore {
   display: flex;
   font-size: 2rem;
+  text-transform: uppercase;
 }
