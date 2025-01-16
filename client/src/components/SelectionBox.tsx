@@ -34,7 +34,7 @@ export default function SelectionBox({
 
     // Position box to the right or left of cursor
     const showOnLeft = cursorPos.x > containerRect.width / 2;
-    const xOffset = showOnLeft ? -boxRect.width - 20 : 20;
+    const xOffset = showOnLeft ? -boxRect.width - 50 : 50;
     
     box.style.position = 'fixed'; 
     box.style.left = `${cursorPos.x + xOffset}px`;

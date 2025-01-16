@@ -7,7 +7,6 @@
 .logo {
   color: #ffffff;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 .timer {
@@ -17,5 +16,4 @@
 .topScore {
   display: flex;
   font-size: 1.5rem;
-  text-transform: uppercase;
 }

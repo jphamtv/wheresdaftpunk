@@ -27,24 +27,26 @@
 
 .feedbackBanner {
   position: fixed;
-  top: 80px;
-  left: 50%;
+  top: 150px;
+  left: 55%;
   transform: translateX(-50%);
   padding: 12px 24px;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 700;
   z-index: 50;
   transition: opacity 150ms ease-in-out;
+  background-color: #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .success {
-  background-color: #4ade80;
-  color: #052e16;
+  color: #4ade80;
+  border: 1px solid #4ade80;
 }
 
 .error {
-  background-color: #f87171;
-  color: #450a0a;
+  color: #ff2d2d;
+  border: 1px solid #ff2d2d;
 }
 
 .completionModal {
@@ -52,10 +54,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #000;
   padding: 32px;
+  border: 1px solid #fff;
   border-radius: 8px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   z-index: 100;
   max-width: 400px;
   width: 90%;
@@ -69,15 +72,18 @@
 }
 
 .completionModal h2 {
-  margin-bottom: 16px;
-  font-size: 24px;
-  font-weight: 600;
-  color: #111827;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
 }
 
 .completionModal p {
-  margin-bottom: 24px;
-  color: #4b5563;
+  font-size: 1rem;
+  margin: 0.5rem 0 1.5rem;
+  color: #ffffff;
+  text-align: center;
 }
 
 .completionModal form {
@@ -88,26 +94,35 @@
 
 .completionModal input {
   padding: 8px 12px;
-  border: 1px solid #d1d5db;
+  border: none;
   border-radius: 4px;
-  font-size: 16px;
-  text-transform: uppercase;
+  font-family: 'Space Mono', monospace;
+  font-size: 1.25rem;
   text-align: center;
-  width: 120px;
-  margin: 0 auto;
+  text-transform: uppercase;
+  width: 260px;
+  height: 60px;
+  margin: 0.25rem auto 1rem;
+}
+
+.completionModal input:focus {
+  outline: none;
 }
 
 .completionModal button {
   padding: 8px 16px;
-  background-color: #2563eb;
+  background-color: #000;
   color: white;
-  border: none;
+  border: 1px solid #fff;
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   transition: background-color 150ms;
 }
 
 .completionModal button:hover {
-  background-color: #1d4ed8;
+  background-color: #fff;
+  border: 1px solid #000;
+  color: #000;
+  font-weight: 700;
 }

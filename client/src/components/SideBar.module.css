@@ -2,7 +2,6 @@
   margin: 1rem 0 1rem;
   font-size: 1.15rem;
   font-weight: 700;
-  text-transform: uppercase;
   text-decoration: underline;
   text-underline-offset: 10px;
 }
@@ -10,5 +9,9 @@
 .artistName {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  text-transform: uppercase;
+}
+
+.found {
+  text-decoration: line-through;
+  color: darkgrey;
 }

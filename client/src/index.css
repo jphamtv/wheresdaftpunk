@@ -8,7 +8,7 @@
   font-size: 1.2rem;
   line-height: 1.5;
   font-weight: 400;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
 
   color-scheme: light dark;
   color: #ffffff;
@@ -21,7 +21,7 @@
 }
 
 body {
-  min-width: 800px;
+  min-width: 1250px;
   min-height: 100vh;
 }
 
@@ -47,7 +47,10 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #64afff;
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
+  font-weight: 700;
 }
 button:focus,
 button:focus-visible {

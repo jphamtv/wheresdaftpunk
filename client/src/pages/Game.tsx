@@ -6,6 +6,7 @@ import SearchArea from '../components/SearchArea';
 import { GameStatus, Target, ValidationRequest } from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
+import { formatTime } from '../utils/timeFormat';
 import styles from './Game.module.css';
 
 interface Feedback {
@@ -148,7 +149,7 @@ export default function Game() {
           <div className={styles.modalOverlay} />
           <div className={styles.completionModal}>
             <h2>Congratulations!</h2>
-            <p>You found all the artists in {elapsedTime} seconds!</p>
+            <p>You found all the artists in {formatTime(elapsedTime)}!</p>
             <form onSubmit={handleScoreSubmit}>
               <input
                 type="text"

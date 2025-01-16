@@ -1,6 +1,6 @@
 .searchArea {
   max-width: 100%;
-  max-height: 90vh; /* Limits height to prevent overflow */
+  max-height: 85vh; /* Limits height to prevent overflow */
   overflow: auto;
   position: relative;
   border: 1px solid #000
