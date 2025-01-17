@@ -6,10 +6,15 @@ interface SelectionBoxProps {
   coords: number[];
   cursorPos: { x: number; y: number };
   targets: Target[];
-  foundTargets: number[];
   onSelect: (targetId: number) => void;
   containerRef: React.RefObject<HTMLDivElement>;
   onClose: () => void;
+  foundTargets: Array<{
+    id: number;
+    name: string;
+    xCoord: number;
+    yCoord: number;
+  }>;
 }
 
 export default function SelectionBox({
@@ -23,7 +28,7 @@ export default function SelectionBox({
 }: SelectionBoxProps) {
   const boxRef = useRef<HTMLDivElement>(null);
   const remainingTargets = targets.filter(target =>
-    !foundTargets.includes(target.id)
+    !foundTargets.some(found => found.id === target.id)
   );
 
   useEffect(() => {

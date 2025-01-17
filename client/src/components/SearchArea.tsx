@@ -1,13 +1,19 @@
 import { useState, useRef, useEffect } from "react";
 import { Target, ValidationRequest, ValidationResponse } from "../types/gameTypes";
-import SelectionBox from './SelectionBox'
-import styles from './SearchArea.module.css'
+import SelectionBox from './SelectionBox';
+import TargetMarker from "./TargetMarker";
+import styles from './SearchArea.module.css';
 
 interface SearchAreaProps {
   className: string;
   targets: Target[];
-  foundTargets: number[];
   onTargetSelect: (request: ValidationRequest) => Promise<ValidationResponse>;
+  foundTargets: Array<{
+    id: number;
+    name: string;
+    xCoord: number;
+    yCoord: number;
+  }>;
 }
 
 export default function SearchArea({
@@ -77,6 +83,23 @@ export default function SearchArea({
 
   return (
     <div ref={containerRef} className={`${className} ${styles.searchArea}`}>
+      <div className={styles.imageContainer}>
+        <img
+          className={styles.img}
+          onClick={handleClick}
+          src="/festival-wheres-daftpunk.jpg"
+          alt="Illustration of a festival scene"
+        />
+        {foundTargets.map(target => (
+          <TargetMarker
+            key={target.id}
+            name={target.name}
+            xCoord={target.xCoord}
+            yCoord={target.yCoord}
+          />
+        ))}
+      </div>
+
       {selectedCoords.length > 0 && cursorPos && (
         <>
           <div 
@@ -102,14 +125,6 @@ export default function SearchArea({
           />
         </>
       )}
-      <div className={styles.imageContainer}>
-        <img
-          className={styles.img}
-          onClick={handleClick}
-          src="/festival-wheres-daftpunk.jpg"
-          alt="Illustration of a festival scene"
-        /> 
-      </div>
     </div>
   );
 }

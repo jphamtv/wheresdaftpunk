@@ -4,7 +4,12 @@ import styles from './SideBar.module.css'
 interface SideBarProps {
   className: string;
   targets: Target[];
-  foundTargets: number[];
+  foundTargets: Array<{
+    id: number;
+    name: string;
+    xCoord: number;
+    yCoord: number;
+  }>;
 }
 
 export default function SideBar({ className, targets, foundTargets}: SideBarProps) {
@@ -13,9 +18,10 @@ export default function SideBar({ className, targets, foundTargets}: SideBarProp
     <aside className={className}>
       <h2 className={styles.title}>Artists to find</h2>
       {targets.map(target => (
-        <div key={target.id} className={`${styles.artistName} ${foundTargets.includes(target.id) ? styles.found : ''}`}>{target.name}</div>
-      ))
-      }
+        <div key={target.id} className={`${styles.artistName} ${foundTargets.some(found => found.id === target.id) ? styles.found : ''}`}>
+          {target.name}
+        </div>
+      ))}
     </aside>
   );
 }

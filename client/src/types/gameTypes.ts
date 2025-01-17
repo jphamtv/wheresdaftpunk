@@ -5,6 +5,13 @@ export interface Target {
   name: string;
 }
 
+export interface FoundTarget {
+  id: number;
+  name: string;
+  xCoord: number;
+  yCoord: number;
+}
+
 export interface ClickCoordinates {
   xCoord: number;
   yCoord: number;

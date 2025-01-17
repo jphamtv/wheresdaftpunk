@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
 import SearchArea from '../components/SearchArea';
-import { GameStatus, Target, ValidationRequest } from '../types/gameTypes';
+import { GameStatus, Target, FoundTarget, ValidationRequest } from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
 import { formatTime } from '../utils/timeFormat';
@@ -21,7 +21,7 @@ export default function Game() {
   const scores = location.state?.scores || [];
   const [gameStatus, setGameStatus] = useState<GameStatus>('not-started');  
   const [targets, setTargets] = useState<Target[]>([]);
-  const [foundTargets, setFoundTargets] = useState<number[]>([]);
+  const [foundTargets, setFoundTargets] = useState<FoundTarget[]>([]);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
@@ -79,12 +79,23 @@ export default function Game() {
       setTimeout(() => setFeedback(null), 2000);
 
       if (success) {
-        const updatedFoundTargets = [...foundTargets, request.id];
-        setFoundTargets(updatedFoundTargets);
-
-        // Check if game is complete
-        if (updatedFoundTargets.length === targets.length) {
-          handleGameEnd();
+        // Get target info
+        const target = targets.find(target => target.id === request.id);
+        if (target) {
+          const newFoundTarget: FoundTarget = {
+            id: request.id,
+            name: target.name,
+            xCoord: request.xCoord,
+            yCoord: request.yCoord
+          };
+          setFoundTargets(prev => {
+            const updated = [...prev, newFoundTarget];
+            // Check if game is complete using the updated state
+            if (updated.length === targets.length) {
+              handleGameEnd();
+            }
+            return updated;
+          });
         }
       }
 

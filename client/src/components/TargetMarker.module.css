@@ -1,0 +1,28 @@
+/* src/components/TargetMarker.module.css */
+.markerContainer {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.marker {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #00ff00;
+  border: 2px solid white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.label {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
