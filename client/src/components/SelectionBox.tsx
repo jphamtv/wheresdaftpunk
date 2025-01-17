@@ -9,6 +9,7 @@ interface SelectionBoxProps {
   foundTargets: number[];
   onSelect: (targetId: number) => void;
   containerRef: React.RefObject<HTMLDivElement>;
+  onClose: () => void;
 }
 
 export default function SelectionBox({
@@ -17,7 +18,8 @@ export default function SelectionBox({
   targets,
   foundTargets,
   onSelect,
-  containerRef
+  containerRef,
+  onClose
 }: SelectionBoxProps) {
   const boxRef = useRef<HTMLDivElement>(null);
   const remainingTargets = targets.filter(target =>
@@ -57,6 +59,9 @@ export default function SelectionBox({
       ref={boxRef}
       className={styles.selectionBox}
     >
+      <div className={styles.closeButton} onClick={onClose}>
+        close
+      </div>
       <ul className={styles.targetList}>
         {remainingTargets.map(target => (
           <li

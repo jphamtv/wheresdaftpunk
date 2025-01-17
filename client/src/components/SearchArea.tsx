@@ -20,6 +20,7 @@ export default function SearchArea({
   const [cursorPos, setCursorPos] = useState<{x: number, y: number} | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Scroll lock effect
   useEffect(() => {
     const searchArea = containerRef.current;
     if (!searchArea) return;
@@ -94,6 +95,10 @@ export default function SearchArea({
             foundTargets={foundTargets}
             onSelect={handleTargetSelect}
             containerRef={containerRef}
+            onClose={() => {
+              setSelectedCoords([]);
+              setCursorPos(null);
+            }}
           />
         </>
       )}
