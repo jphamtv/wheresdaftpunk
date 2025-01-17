@@ -149,7 +149,7 @@ export default function Game() {
           <div className={styles.modalOverlay} />
           <div className={styles.completionModal}>
             <h2>Congratulations!</h2>
-            <p>You found all the artists in {formatTime(elapsedTime)}!</p>
+            <p>You found all the artists in <span className={styles.score}>{formatTime(elapsedTime)}</span></p>
             <form onSubmit={handleScoreSubmit}>
               <input
                 type="text"
