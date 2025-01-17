@@ -8,6 +8,8 @@ export interface Target {
 export interface FoundTarget {
   id: number;
   name: string;
+  x: number;
+  y: number;
   xCoord: number;
   yCoord: number;
 }

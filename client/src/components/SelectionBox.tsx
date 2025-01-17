@@ -12,6 +12,8 @@ interface SelectionBoxProps {
   foundTargets: Array<{
     id: number;
     name: string;
+    x: number;
+    y: number;
     xCoord: number;
     yCoord: number;
   }>;

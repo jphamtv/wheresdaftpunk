@@ -64,7 +64,10 @@ export default function Game() {
     }
   };
 
-  const handleTargetValidation = async (request: ValidationRequest) => {
+  const handleTargetValidation = async (
+    request: ValidationRequest,
+    cursorPos: { x: number, y: number }
+  ) => {
     try {
       const { success, message } = await targetService.verifyLocation(
         request.id,
@@ -79,18 +82,26 @@ export default function Game() {
       setTimeout(() => setFeedback(null), 2000);
 
       if (success) {
-        // Get target info
-        const target = targets.find(target => target.id === request.id);
-        if (target) {
+      const target = targets.find(target => target.id === request.id);
+      if (target) {
+        // Get current cursor position from SearchArea
+        const searchArea = document.querySelector(`.${styles.searchArea}`);
+        const rect = searchArea?.getBoundingClientRect();
+        // Get current scroll position
+        const scrollLeft = searchArea?.scrollLeft || 0;
+        const scrollTop = searchArea?.scrollTop || 0;
+
+        if (rect && cursorPos) {
           const newFoundTarget: FoundTarget = {
             id: request.id,
             name: target.name,
-            xCoord: request.xCoord,
+            x: cursorPos.x - rect.left + scrollLeft,  // Convert to container coordinates
+            y: cursorPos.y - rect.top + scrollTop,    // Convert to container coordinates
+            xCoord: request.xCoord,  // Keep these for backend validation
             yCoord: request.yCoord
           };
           setFoundTargets(prev => {
             const updated = [...prev, newFoundTarget];
-            // Check if game is complete using the updated state
             if (updated.length === targets.length) {
               handleGameEnd();
             }
@@ -98,8 +109,8 @@ export default function Game() {
           });
         }
       }
-
-      return { success, message };
+    }
+    return { success, message };
     } catch (err) {
       setError('Failed to verify target');
       console.error('Error verifying target: ', err);

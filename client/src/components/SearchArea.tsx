@@ -7,10 +7,12 @@ import styles from './SearchArea.module.css';
 interface SearchAreaProps {
   className: string;
   targets: Target[];
-  onTargetSelect: (request: ValidationRequest) => Promise<ValidationResponse>;
+  onTargetSelect: (request: ValidationRequest, cursorPos: { x: number, y: number }) => Promise<ValidationResponse>;
   foundTargets: Array<{
     id: number;
     name: string;
+    x: number;
+    y: number;
     xCoord: number;
     yCoord: number;
   }>;
@@ -72,11 +74,16 @@ export default function SearchArea({
   };
 
   const handleTargetSelect = (targetId: number) => {
-    onTargetSelect({
-      id: targetId,
-      xCoord: selectedCoords[0],
-      yCoord: selectedCoords[1]
-    });
+    if (cursorPos) {
+      onTargetSelect(
+        {
+          id: targetId,
+          xCoord: selectedCoords[0],
+          yCoord: selectedCoords[1]
+        },
+        cursorPos
+      );      
+    }
     setSelectedCoords([]);
     setCursorPos(null);
   };
@@ -94,8 +101,8 @@ export default function SearchArea({
           <TargetMarker
             key={target.id}
             name={target.name}
-            xCoord={target.xCoord}
-            yCoord={target.yCoord}
+            x={target.x}
+            y={target.y}
           />
         ))}
       </div>
