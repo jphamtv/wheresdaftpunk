@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap");
 
 :root {
-  --font-space: 'Space Mono', monospace;
-  --font-vt323: 'VT323', monospace;
-  
-  font-family: 'Space Mono', monospace;
+  --font-space: "Space Mono", monospace;
+  --font-vt323: "VT323", monospace;
+
+  font-family: "Space Mono", monospace;
   font-size: 1.2rem;
   line-height: 1.5;
   font-weight: 400;
@@ -12,7 +12,7 @@
 
   color-scheme: light dark;
   color: #ffffff;
-  background-color: #000000;
+  background-color: #101010;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -39,21 +39,20 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1.25em;
   font-weight: 400;
-  font-family: 'Space Mono', monospace;
+  font-family: "Space Mono", monospace;
   text-transform: uppercase;
 
-  background-color: #000000;
+  background-color: #101010;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
   background-color: #fff;
-  border-color: #000;
-  color: #000;
+  border-color: #101010;
+  color: #101010;
   font-weight: 700;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-

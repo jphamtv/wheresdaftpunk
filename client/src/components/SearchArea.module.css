@@ -3,10 +3,10 @@
   max-height: 85vh; /* Limits height to prevent overflow */
   overflow: auto;
   position: relative;
-  border: 1px solid #000
+  border: 1px solid #101010;
 }
 
-.imageContainer { 
+.imageContainer {
   position: relative;
   display: inline-block;
   width: fit-content;
