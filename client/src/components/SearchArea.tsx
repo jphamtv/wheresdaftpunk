@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Target, ValidationRequest, ValidationResponse } from "../types/gameTypes";
 import SelectionBox from './SelectionBox'
 import styles from './SearchArea.module.css'
@@ -19,6 +19,30 @@ export default function SearchArea({
   const [selectedCoords, setSelectedCoords] = useState<number[]>([]);
   const [cursorPos, setCursorPos] = useState<{x: number, y: number} | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const searchArea = containerRef.current;
+    if (!searchArea) return;
+    
+    // Check if SelectionBox is open
+    if (selectedCoords.length > 0 && cursorPos) {
+      // Disable scrolling on both body and SearchArea
+      document.body.style.overflow = 'hidden';
+      searchArea.style.overflow = 'hidden';
+    } else {
+      // Re-enable scrolling
+      document.body.style.overflow = 'auto';
+      searchArea.style.overflow = 'auto';
+    }
+
+    // Cleanup when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+      if (searchArea) {
+      searchArea.style.overflow = 'auto';
+    }
+    };
+  }, [selectedCoords, cursorPos]);
 
   const handleClick = (e: React.MouseEvent<HTMLImageElement>) => {
     const image = e.currentTarget;
