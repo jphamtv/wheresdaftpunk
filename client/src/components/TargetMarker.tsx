@@ -8,8 +8,8 @@ interface TargetMarkerProps {
 
 export default function TargetMarker({ name, x, y }: TargetMarkerProps) {
   return (
-    <div 
-      className={styles.markerContainer}
+    <span 
+      className={styles.label}
       style={{ 
         position: 'absolute',
         left: x,
@@ -17,8 +17,7 @@ export default function TargetMarker({ name, x, y }: TargetMarkerProps) {
         transform: 'translate(-50%, -50%)'
       }}
     >
-      {/* <div className={styles.marker} /> */}
-      <span className={styles.label}>{name}</span>
-    </div>
+      {name}
+    </span>
   );
 }

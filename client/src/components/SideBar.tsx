@@ -1,15 +1,10 @@
-import { Target } from '../types/gameTypes';
+import { Target, FoundTarget } from '../types/gameTypes';
 import styles from './SideBar.module.css'
 
 interface SideBarProps {
   className: string;
   targets: Target[];
-  foundTargets: Array<{
-    id: number;
-    name: string;
-    xCoord: number;
-    yCoord: number;
-  }>;
+  foundTargets: FoundTarget[];
 }
 
 export default function SideBar({ className, targets, foundTargets}: SideBarProps) {

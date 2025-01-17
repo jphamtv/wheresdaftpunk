@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Target } from '../types/gameTypes';
+import { Target, FoundTarget } from '../types/gameTypes';
 import styles from './SelectionBox.module.css'
 
 interface SelectionBoxProps {
@@ -9,14 +9,7 @@ interface SelectionBoxProps {
   onSelect: (targetId: number) => void;
   containerRef: React.RefObject<HTMLDivElement>;
   onClose: () => void;
-  foundTargets: Array<{
-    id: number;
-    name: string;
-    x: number;
-    y: number;
-    xCoord: number;
-    yCoord: number;
-  }>;
+  foundTargets: FoundTarget[];
 }
 
 export default function SelectionBox({
