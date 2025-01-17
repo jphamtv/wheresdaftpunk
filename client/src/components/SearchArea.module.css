@@ -19,3 +19,13 @@
   height: auto;
   display: block;
 }
+
+.clickMarker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: black;
+  border: 2px solid white;
+  pointer-events: none; /* So it doesn't interfere with clicks */
+  z-index: 1000;
+}

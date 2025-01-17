@@ -53,14 +53,25 @@ export default function SearchArea({
   return (
     <div ref={containerRef} className={`${className} ${styles.searchArea}`}>
       {selectedCoords.length > 0 && cursorPos && (
-        <SelectionBox
-          coords={selectedCoords}
-          cursorPos={cursorPos}
-          targets={targets}
-          foundTargets={foundTargets}
-          onSelect={handleTargetSelect}
-          containerRef={containerRef}
-        />
+        <>
+          <div 
+          className={styles.clickMarker}
+          style={{
+            position: 'fixed',
+            left: cursorPos.x,
+            top: cursorPos.y,
+            transform: 'translate(-50%, -50%)' 
+          }}
+          />
+          <SelectionBox
+            coords={selectedCoords}
+            cursorPos={cursorPos}
+            targets={targets}
+            foundTargets={foundTargets}
+            onSelect={handleTargetSelect}
+            containerRef={containerRef}
+          />
+        </>
       )}
       <div className={styles.imageContainer}>
         <img
