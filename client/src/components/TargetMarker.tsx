@@ -16,7 +16,9 @@ export default function TargetMarker({ name, xCoord, yCoord }: TargetMarkerProps
       className={styles.markerContainer}
       style={{ 
         left: `${xPercent}%`, 
-        top: `${yPercent}%` 
+        top: `${yPercent}%`,
+        position: 'absolute',
+        transform: 'translate(-50%, -50%)'
       }}
     >
       <div className={styles.marker} />
