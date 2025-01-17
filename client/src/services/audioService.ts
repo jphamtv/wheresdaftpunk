@@ -4,7 +4,7 @@ class AudioService {
   constructor() {
     this.backgroundMusic = new Audio('/src/assets/audio/background-music.mp3');
     this.backgroundMusic.loop = true;
-    this.backgroundMusic.volume = 0.25; // Set initial volume to 50%
+    this.backgroundMusic.volume = 0.10; // Set initial volume to 10%
   }
 
   playBackgroundMusic(): void {
