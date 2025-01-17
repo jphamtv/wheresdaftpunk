@@ -20,7 +20,6 @@ export default function Home() {
     try {
       const scores = await scoreService.getScores();
       setScores(scores);
-      console.log(scores)
     } catch (err) {
       setError('Failed to load scores');
       console.error('Error loading scores: ', err);
