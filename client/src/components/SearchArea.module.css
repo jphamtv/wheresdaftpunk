@@ -27,5 +27,5 @@
   background-color: black;
   border: 2px solid white;
   pointer-events: none; /* So it doesn't interfere with clicks */
-  z-index: 1000;
+  z-index: 10;
 }

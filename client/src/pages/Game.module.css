@@ -33,7 +33,7 @@
   padding: 12px 24px;
   border-radius: 4px;
   font-weight: 700;
-  z-index: 50;
+  z-index: 20;
   transition: opacity 150ms ease-in-out;
   background-color: #101010;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
@@ -59,7 +59,7 @@
   border: 1px solid #fff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  z-index: 30;
   max-width: 400px;
   width: 90%;
 }
@@ -68,7 +68,7 @@
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 90;
+  z-index: 30;
 }
 
 .completionModal h2 {
