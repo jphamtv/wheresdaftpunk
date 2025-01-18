@@ -47,6 +47,23 @@ export default function Game() {
     };
   }, [gameStatus]);
 
+  // Prevents browser back button navigation during gameplay
+  useEffect(() => {
+  // Push a new entry to history when game starts
+  window.history.pushState(null, '', window.location.pathname);
+
+  // Prevent going back by pushing another state when back is clicked
+  const handlePopState = () => {
+    window.history.pushState(null, '', window.location.pathname);
+  };
+
+  window.addEventListener('popstate', handlePopState);
+
+  return () => {
+    window.removeEventListener('popstate', handlePopState);
+  };
+}, []);
+
   const handleGameStart = async () => {
     // Start background music when game component mounts
     audioService.playBackgroundMusic();
