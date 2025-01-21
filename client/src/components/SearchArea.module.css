@@ -15,7 +15,7 @@
 }
 
 .img {
-  width: 3000px; /* fixed width maintains desired zoom level */
+  width: 2600px; /* fixed width maintains desired zoom level */
   height: auto;
   display: block;
 }
