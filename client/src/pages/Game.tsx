@@ -7,7 +7,6 @@ import { GameStatus, Target, FoundTarget, ValidationRequest } from '../types/gam
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
 import { formatTime } from '../utils/timeFormat';
-import { audioService } from '../services/audioService';
 import styles from './Game.module.css';
 
 interface Feedback {
@@ -65,9 +64,6 @@ export default function Game() {
 }, []);
 
   const handleGameStart = async () => {
-    // Start background music when game component mounts
-    audioService.playBackgroundMusic();
-
     try {
       const targets = await targetService.getTargets();
       setTargets(targets);
@@ -136,9 +132,6 @@ export default function Game() {
   };
 
   const handleGameEnd = async () => {
-    // Stop background music
-    audioService.stopBackgroundMusic();
-
     try {
       const response = await scoreService.stopTimer();
       setGameStatus('completed');
