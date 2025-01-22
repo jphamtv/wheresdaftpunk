@@ -17,6 +17,9 @@ export default function SideBar({ className, targets, foundTargets}: SideBarProp
           {target.name}
         </div>
       ))}
+      <div className={styles.credit}>
+        Illustration by <a className={styles.link} href="https://www.adamcarnegie.com" target='_blank' rel='noopener noreferrer'>Adam Carnegie</a>.
+      </div>
     </aside>
   );
 }

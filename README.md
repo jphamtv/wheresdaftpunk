@@ -79,5 +79,4 @@ The game should now be running at `http://localhost:5173`
 
 ## Acknowledgments
 - Project inspiration from The Odin Project curriculum
-- Festival scene artwork by [Add artist credit]
-- Music by Daft Punk
+- Festival scene artwork by [Adam Carnegie](https://www.adamcarnegie.com/)
