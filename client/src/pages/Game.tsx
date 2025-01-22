@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
 import SearchArea from '../components/SearchArea';
-import { GameStatus, Target, FoundTarget, ValidationRequest } from '../types/gameTypes';
+import { GameStatus, Score, Target, FoundTarget, ValidationRequest } from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
 import { formatTime } from '../utils/timeFormat';
@@ -16,8 +16,7 @@ interface Feedback {
 
 export default function Game() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const scores = location.state?.scores || [];
+  const [scores, setScores] = useState<Score[]>([]);
   const [gameStatus, setGameStatus] = useState<GameStatus>('not-started');  
   const [targets, setTargets] = useState<Target[]>([]);
   const [foundTargets, setFoundTargets] = useState<FoundTarget[]>([]);
@@ -30,6 +29,18 @@ export default function Game() {
     // Start game when component mounts
     handleGameStart();
   }, []);
+
+  useEffect(() => {
+  const fetchScores = async () => {
+    try {
+      const scores = await scoreService.getScores();
+      setScores(scores);
+    } catch (err) {
+      console.error('Error fetching scores:', err);
+    }
+  };
+  fetchScores();
+}, []);
 
   useEffect(() => {
     let intervalId: number;
