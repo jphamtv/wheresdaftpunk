@@ -15,22 +15,22 @@
   "description": "",
   "dependencies": {
     "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.10.4",
-    "@types/pg": "^8.11.10",
+    "@types/express": "^4.17.21",
+    "@types/node": "^18.0.0",
+    "@types/pg": "^8.10.9",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "pg": "^8.13.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.19.0",
-    "@typescript-eslint/parser": "^8.19.0",
-    "eslint": "^9.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.4.2",
+    "prettier": "^3.1.0",
     "ts-node-dev": "^2.0.0"
   }
 }
