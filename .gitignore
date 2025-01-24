@@ -1,5 +1,8 @@
 # Project specific
+db-scripts/
 populatedb.js
+seed.js
+check-data.js
 project_photo_tagging.md
 dist/
 coordinate_finder/
