@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "types": ["node", "express", "cors", "pg"],
     "target": "es6",
     "module": "commonjs",
     "rootDir": "./src",
