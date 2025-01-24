@@ -167,8 +167,8 @@ export default function Game() {
     }    
   };
   
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className={styles.loading}>Loading...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <main className={styles.container}>
@@ -176,7 +176,7 @@ export default function Game() {
       {feedback && (
         <div
           className={`${styles.feedbackBanner} ${
-            feedback.isSuccess ? styles.success : styles.error
+            feedback.isSuccess ? styles.success : styles.fail
           }`}
         >
           {feedback.message}

@@ -44,7 +44,7 @@
   border: 1px solid #4ade80;
 }
 
-.error {
+.fail {
   color: #ff2d2d;
   border: 1px solid #ff2d2d;
 }
@@ -129,4 +129,10 @@
 
 .score {
   font-size: 1.5rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  margin-top: 33%;
 }

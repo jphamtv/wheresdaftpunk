@@ -32,8 +32,8 @@ export default function Home() {
     navigate('/game', { state: { scores } });
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className={styles.loading}>Loading...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <main className={styles.container}>

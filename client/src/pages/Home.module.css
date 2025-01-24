@@ -21,3 +21,9 @@
   width: 333px;
   height: auto;
 }
+
+.loading,
+.error {
+  text-align: center;
+  margin-top: 33%;
+}
