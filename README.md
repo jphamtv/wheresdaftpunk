@@ -33,8 +33,8 @@ A "Where's Waldo?"-style game where players search for famous artists hidden in 
 
 1. Clone the repository
 ```bash
-git clone https://github.com/[your-username]/where-that-artist.git
-cd where-that-artist
+git clone https://github.com/jphamtv/odin-photo-tagging.git
+cd odin-photo-tagging
 ```
 
 2. Install backend dependencies
