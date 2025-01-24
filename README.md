@@ -1,9 +1,9 @@
-# Where's Daft Punk? - A Photo Tagging Game
+# Where's Daft Punk? - An Image Tagging Game
 
 A "Where's Waldo?"-style game where players search for famous artists hidden in a crowded music festival scene. Test your speed and observation skills by finding all the artists as quickly as possible!
 
 ## Live Demo
-[Add your deployed URL here]
+[Add URL here]
 
 ## Features
 - Interactive image search with targeting system
