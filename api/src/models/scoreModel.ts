@@ -4,6 +4,7 @@ import { DbScore } from '../types/dbTypes';
 interface GameTimer {
   startTime: Date;
   time_seconds: number | null;
+  keepaliveInterval?: NodeJS.Timeout
 }
 
 // In-memory storage for current game time
@@ -16,11 +17,21 @@ let currentGame: GameTimer = {
 export const startGameTimer = () => {
   currentGame = {
     startTime: new Date(),
-    time_seconds: null
+    time_seconds: null,
+    keepaliveInterval: setInterval(async () => {
+      try {
+        await db.query('SELECT 1');
+      } catch (err) {
+        console.error('Keepalive failed:', err);
+      }
+    }, 60000)
   };
 };
 
 export const stopGameTimer = () => {
+  if (currentGame.keepaliveInterval) {
+    clearInterval(currentGame.keepaliveInterval);
+  }
   const endTime = new Date();
   currentGame.time_seconds = Math.floor(
     (endTime.getTime() - currentGame.startTime.getTime()) / 1000
