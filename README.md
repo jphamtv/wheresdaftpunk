@@ -3,7 +3,7 @@
 A "Where's Waldo?"-style game where players search for famous artists hidden in a crowded music festival scene. Test your speed and observation skills by finding all the artists as quickly as possible!
 
 ## Live Demo
-[Add URL here] - Optimized for desktop only
+[Where's Daft Punk](https://where-is-daft-punk.onrender.com/) - Optimized for desktop only
 
 ## Features
 - Interactive image search with targeting system
