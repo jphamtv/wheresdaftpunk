@@ -8,7 +8,6 @@ interface GameTimer {
 }
 
 // In-memory storage for current game time
-// For production - use Redis or similar
 let currentGame: GameTimer = {
   startTime: new Date(),
   time_seconds: null
@@ -60,7 +59,7 @@ export const getAll = async (): Promise<DbScore[]> => {
     SELECT username, time_seconds 
     FROM scores
     ORDER BY time_seconds ASC
-    LIMIT 5
+    LIMIT 10
   `);
   return rows;
 };
