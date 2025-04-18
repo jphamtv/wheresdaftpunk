@@ -21,6 +21,14 @@ export default function SearchArea({
   const [cursorPos, setCursorPos] = useState<{x: number, y: number} | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // New state variables for panning
+  const [isDragging, setIsDragging] = useState(false);
+  const [startDragPos, setStartDragPos] = useState<{x: number, y: number} | null>(null);
+  const [hasMoved, setHasMoved] = useState(false);
+  
+  // Constants for drag threshold
+  const DRAG_THRESHOLD = 5; // pixels to move before considering it a drag
+
   // Scroll lock effect
   useEffect(() => {
     const searchArea = containerRef.current;
@@ -46,7 +54,73 @@ export default function SearchArea({
     };
   }, [selectedCoords, cursorPos]);
 
+  // Handle mouse down - potential start of drag
+  const handleMouseDown = (e: React.MouseEvent<HTMLImageElement>) => {
+    if (e.button !== 0) return; // Only handle left mouse button
+    
+    // Record the starting position
+    setStartDragPos({ x: e.clientX, y: e.clientY });
+    setIsDragging(true);
+    setHasMoved(false);
+    
+    // Change cursor to grabbing
+    if (containerRef.current) {
+      containerRef.current.style.cursor = 'grabbing';
+    }
+  };
+
+  // Handle mouse move - continue drag if started
+  const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
+    if (!isDragging || !startDragPos || !containerRef.current) return;
+    
+    const deltaX = e.clientX - startDragPos.x;
+    const deltaY = e.clientY - startDragPos.y;
+    
+    // Check if we've moved enough to consider this a drag operation
+    if (!hasMoved && (Math.abs(deltaX) > DRAG_THRESHOLD || Math.abs(deltaY) > DRAG_THRESHOLD)) {
+      setHasMoved(true);
+    }
+    
+    if (hasMoved) {
+      // Move the scroll position
+      containerRef.current.scrollLeft -= deltaX;
+      containerRef.current.scrollTop -= deltaY;
+      
+      // Update the start position for the next move event
+      setStartDragPos({ x: e.clientX, y: e.clientY });
+    }
+  };
+
+  // Handle mouse up - end of drag or click
+  const handleMouseUp = (e: React.MouseEvent<HTMLImageElement>) => {
+    // Reset cursor
+    if (containerRef.current) {
+      containerRef.current.style.cursor = 'auto';
+    }
+    
+    // If we didn't drag (or barely moved), treat as a click
+    if (!hasMoved && isDragging) {
+      handleClick(e);
+    }
+    
+    // Reset drag state
+    setIsDragging(false);
+    setStartDragPos(null);
+  };
+
+  // Handle mouse leave - similar to mouse up but without click
+  const handleMouseLeave = () => {
+    if (isDragging && containerRef.current) {
+      containerRef.current.style.cursor = 'auto';
+      setIsDragging(false);
+      setStartDragPos(null);
+    }
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLImageElement>) => {
+    // Skip if this is part of a drag operation
+    if (hasMoved) return;
+
     const image = e.currentTarget;
     const container = containerRef.current;
     if (!container) return;
@@ -82,13 +156,19 @@ export default function SearchArea({
   };
 
   return (
-    <div ref={containerRef} className={`${className} ${styles.searchArea}`}>
+    <div ref={containerRef}
+      className={`${className} ${styles.searchArea} ${isDragging ? styles.grabbing : ''}`}
+    >
       <div className={styles.imageContainer}>
         <img
           className={styles.img}
-          onClick={handleClick}
           src="/festival-wheres-daftpunk.jpg"
           alt="Illustration of a festival scene"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          draggable="false" // Prevent default browser drag behavior
         />
         {foundTargets.map(target => (
           <TargetMarker
