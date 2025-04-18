@@ -7,7 +7,7 @@
   cursor: grab /* Shows move cursor when hovering over the container */
 }
 
-.searchArea.grabbing {
+.grabbing {
   cursor: grabbing !important; /* Shows moving cursor when actively dragging */
 }
 

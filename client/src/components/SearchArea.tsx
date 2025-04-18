@@ -29,6 +29,18 @@ export default function SearchArea({
   // Constants for drag threshold
   const DRAG_THRESHOLD = 5; // pixels to move before considering it a drag
 
+  // Focus the container when component mounts
+  useEffect(() => {
+    if (containerRef.current) {
+      // Make the container focusable and focus it
+      containerRef.current.tabIndex = 0;
+      containerRef.current.focus();
+      
+      // This prevents the focus outline from showing 
+      containerRef.current.style.outline = 'none';
+    }
+  }, []);
+
   // Scroll lock effect
   useEffect(() => {
     const searchArea = containerRef.current;
@@ -158,6 +170,7 @@ export default function SearchArea({
   return (
     <div ref={containerRef}
       className={`${className} ${styles.searchArea} ${isDragging ? styles.grabbing : ''}`}
+      tabIndex={0}
     >
       <div className={styles.imageContainer}>
         <img
