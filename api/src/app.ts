@@ -4,6 +4,7 @@ import db from './models/db';
 import targetsRouter from './routes/targetsRouter';
 import scoresRouter from './routes/scoresRouter';
 import { corsOptionsBase } from "./config/corsConfig";
+import { logger } from './utils/logger';
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -27,7 +28,7 @@ app.get('/health', (req: Request, res: Response) => {
       const result = await db.query(`SELECT 1 as test`);     
       return res.status(200).json({ status: 'ok', message: 'Service is healthy', dbConnected: true });
     } catch (err) {
-      console.error(`Health check failed: ${err}`);
+      logger.error(`Health check failed: ${err}`);
       return res.status(500).json({ status: 'error', message: 'Service is unhealthy', dbConnected: false });
     }
   };
@@ -41,7 +42,7 @@ app.use("/api/targets", targetsRouter);
 
 // Error handing
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err); // Log error for debugging
+  logger.error(err.message); // Log error message as string
   res.status(500).json({ error: "Something went wrong" }); // Send simple message to user to see
 });
 

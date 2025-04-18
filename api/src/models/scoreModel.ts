@@ -1,5 +1,6 @@
 import db from './db';
 import { DbScore } from '../types/dbTypes';
+import { logger } from '../utils/logger';
 
 interface GameTimer {
   startTime: Date;
@@ -21,7 +22,7 @@ export const startGameTimer = () => {
       try {
         await db.query('SELECT 1');
       } catch (err) {
-        console.error('Keepalive failed:', err);
+        logger.error('Keepalive failed:', err);
       }
     }, 60000)
   };

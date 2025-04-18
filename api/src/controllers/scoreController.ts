@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { create, getAll, stopGameTimer, getGameTime, startGameTimer } from "../models/scoreModel";
 import { toApiScore } from "../types/transformers";
+import { logger } from '../utils/logger';
 
 export const getScores = async (req: Request, res: Response) => {
   try {
@@ -8,7 +9,7 @@ export const getScores = async (req: Request, res: Response) => {
     const apiScores = dbScores.map(toApiScore);
     res.json(apiScores);
   } catch (err) {
-    console.error("Fetching scores error: ", err);
+    logger.error("Fetching scores error: ", err);
     res.status(500).json({ message: "Error fetching scores" });
   }
 };
@@ -22,7 +23,7 @@ export const startTimer = async (req: Request, res: Response) => {
       startTime: Date.now() // Could be useful for validation/debugging
     });
   } catch (err) {
-    console.error("Error starting timer: ", err);
+    logger.error("Error starting timer: ", err);
     res.status(500).json({ 
       success: false,
       message: "Error starting timer" 
@@ -36,7 +37,7 @@ export const stopTimer = async (req: Request, res: Response) => {
 
     res.json({ timeSeconds: time_seconds });
   } catch (err) {
-    console.error("Error stopping timer: ", err);
+    logger.error("Error stopping timer: ", err);
     res.status(500).json({ message: "Error stopping timer" });
   }
 };
@@ -53,7 +54,7 @@ export const submitScore = async (req: Request, res: Response) => {
 
     res.status(201).json(newApiScore);
   } catch (err) {
-    console.error("Error ending game: ", err);
+    logger.error("Error ending game: ", err);
     res.status(500).json({ message: "Error ending game" });
   }
 };

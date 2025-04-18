@@ -1,3 +1,5 @@
+import { logger } from '../utils/logger';
+
 const devOrigins = ['http://localhost:5173', 'http://localhost:5174'];
 const prodOrigins =
   process.env.ALLOWED_ORIGINS?.split(',')
@@ -8,7 +10,7 @@ const allowedOrigins =
   process.env.NODE_ENV === 'production' ? prodOrigins : devOrigins;
 
 if (process.env.NODE_ENV === 'production' && allowedOrigins.length === 0) {
-  console.error(
+  logger.error(
     'FATAL CORS ERROR: ALLOWED_ORIGINS env var is not set or empty in production!'
   );
   throw new Error('Production CORS origins are not configured!');

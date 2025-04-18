@@ -4,6 +4,7 @@ import { scoreService } from '../services/scoreService';
 import { Score } from '../types/gameTypes';
 import ScoreBoard from '../components/ScoreBoard';
 import daftPunkImage from '../assets/daft_punk_helmets.png';
+import { logger } from '../utils/logger';
 import styles from './Home.module.css';
 
 export default function Home() {
@@ -22,7 +23,7 @@ export default function Home() {
       setScores(scores);
     } catch (err) {
       setError('Failed to load scores');
-      console.error('Error loading scores: ', err);
+      logger.error('Error loading scores: ', err);
     } finally {
       setLoading(false);
     }

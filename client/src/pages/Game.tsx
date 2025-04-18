@@ -7,6 +7,7 @@ import { GameStatus, Score, Target, FoundTarget, ValidationRequest } from '../ty
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
 import { formatTime } from '../utils/timeFormat';
+import { logger } from '../utils/logger';
 import styles from './Game.module.css';
 
 interface Feedback {
@@ -36,7 +37,7 @@ export default function Game() {
       const scores = await scoreService.getScores();
       setScores(scores);
     } catch (err) {
-      console.error('Error fetching scores:', err);
+      logger.error('Error fetching scores:', err);
     }
   };
   fetchScores();
@@ -82,7 +83,7 @@ export default function Game() {
       await scoreService.startTimer();
     } catch (err) {
       setError('Failed to start game');
-      console.error('Error starting game: ', err);
+      logger.error('Error starting game: ', err);
     } finally {
       setLoading(false);
     }
@@ -137,7 +138,7 @@ export default function Game() {
     return { success, message };
     } catch (err) {
       setError('Failed to verify target');
-      console.error('Error verifying target: ', err);
+      logger.error('Error verifying target: ', err);
       return { success: false, message: 'Error verifying target' };
     }
   };
@@ -150,7 +151,7 @@ export default function Game() {
       setElapsedTime(response.timeSeconds);
     } catch (err) {
       setError('Failed to end game');
-      console.error('Error ending game: ', err);
+      logger.error('Error ending game: ', err);
     }
   };
   
@@ -163,7 +164,7 @@ export default function Game() {
       navigate('/'); 
     } catch (err) {
       setError('Failed to submit score');
-      console.error('Error submitting score: ', err);
+      logger.error('Error submitting score: ', err);
     }    
   };
   
