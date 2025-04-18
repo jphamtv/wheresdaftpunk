@@ -5,15 +5,15 @@
 }
 
 .logo {
-  color: #ffffff;
-  text-decoration: none;
+  height: 4.75rem;
+  margin-top: 1rem;
 }
 
 .timer {
-  font-size: 2.25rem;
+  font-size: 2rem;
 }
 
 .topScore {
   display: flex;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
 }

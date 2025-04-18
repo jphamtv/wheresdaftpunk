@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { scoreService } from '../services/scoreService';
 import { Score } from '../types/gameTypes';
 import ScoreBoard from '../components/ScoreBoard';
-import daftPunkImage from '../assets/daft_punk_helmets.png';
+import daftPunkImage from '../assets/daftpunk.png';
 import { logger } from '../utils/logger';
 import styles from './Home.module.css';
 
@@ -64,7 +64,7 @@ export default function Home() {
         <p>Your mission: search through the epic music festival scene to spot Daft Punk and other legendary artists.</p>
         <p>Time is ticking!</p>
       </div>
-      <button onClick={handleStartGame}>Find the Robots</button>
+      <button onClick={handleStartGame}>Start Game</button>
       <div>
         <ScoreBoard scores={ scores } />
       </div>

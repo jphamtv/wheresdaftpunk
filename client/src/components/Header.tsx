@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Score } from '../types/gameTypes';
 import { formatTime } from '../utils/timeFormat';
+import daftPunkImage from '../assets/daftpunk.png';
 import styles from './Header.module.css'
 
 interface HeaderProps {
@@ -15,7 +16,12 @@ export default function Header({ className, timer, scores}: HeaderProps) {
   return (
     <header className={`${className} ${styles.header}`}>
       <Link to={'/'}>
-        <h1 className={styles.logo}>Where's Daft Punk?</h1>
+        {/* <h1 className={styles.logo}>Where's Daft Punk?</h1> */}
+        <h1><img
+          className={styles.logo}
+          src={daftPunkImage}
+          alt="Daft Punk helmets"
+        /></h1>
       </Link>
       <div className={styles.timer}>{formatTime(timer)}</div>
       {topScore && (

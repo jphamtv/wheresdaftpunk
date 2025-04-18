@@ -25,14 +25,14 @@ app.get('/health', (req: Request, res: Response) => {
   const checkHealth = async () => {
     try {
       // Check database connection by running a simple query
-      const result = await db.query(`SELECT 1 as test`);     
+      const result = await db.query(`SELECT 1 as test`);
       return res.status(200).json({ status: 'ok', message: 'Service is healthy', dbConnected: true });
     } catch (err) {
       logger.error(`Health check failed: ${err}`);
       return res.status(500).json({ status: 'error', message: 'Service is unhealthy', dbConnected: false });
     }
   };
-  
+
   checkHealth();
 });
 
