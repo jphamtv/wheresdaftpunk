@@ -32,8 +32,21 @@ export default function Home() {
     navigate('/game', { state: { scores } });
   };
 
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
+  if (loading) {
+    return (
+      <div className={styles.stateContainer}>
+        <div className={styles.loading}>Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.stateContainer}>
+        <div className={styles.error}>{error}</div>
+      </div>
+    );
+  }
 
   return (
     <main className={styles.container}>
@@ -44,6 +57,11 @@ export default function Home() {
           src={daftPunkImage}
           alt="Daft Punk helmets"
         />
+      </div>
+      <div className={styles.gameIntro}>
+        <p>The robots are hiding...and they're not alone. From punk to funk, from rock to electronica - legends of music are tearing it up with the punters.</p>
+        <p>Your mission: search through the epic music festival scene to spot Daft Punk and other legendary artists.</p>
+        <p>Time is ticking!</p>
       </div>
       <button onClick={handleStartGame}>Find the Robots</button>
       <div>

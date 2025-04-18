@@ -22,8 +22,21 @@
   height: auto;
 }
 
+.gameIntro {
+  text-align: center;
+  max-width: 35rem;
+  line-height: 1.75;
+}
+
+.stateContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh; 
+}
+
 .loading,
 .error {
   text-align: center;
-  margin-top: 33%;
+  transform: translateY(-15%); /* Slightly above center */
 }
