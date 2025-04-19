@@ -1,13 +1,21 @@
-import { useState, useRef, useEffect } from "react";
-import { Target, FoundTarget, ValidationRequest, ValidationResponse } from "../types/gameTypes";
+import { useState, useRef, useEffect } from 'react';
+import {
+  Target,
+  FoundTarget,
+  ValidationRequest,
+  ValidationResponse,
+} from '../types/gameTypes';
 import SelectionBox from './SelectionBox';
-import TargetMarker from "./TargetMarker";
+import TargetMarker from './TargetMarker';
 import styles from './SearchArea.module.css';
 
 interface SearchAreaProps {
   className: string;
   targets: Target[];
-  onTargetSelect: (request: ValidationRequest, cursorPos: { x: number, y: number }) => Promise<ValidationResponse>;
+  onTargetSelect: (
+    request: ValidationRequest,
+    cursorPos: { x: number; y: number }
+  ) => Promise<ValidationResponse>;
   foundTargets: FoundTarget[];
 }
 
@@ -15,17 +23,22 @@ export default function SearchArea({
   className,
   onTargetSelect,
   targets,
-  foundTargets
+  foundTargets,
 }: SearchAreaProps) {
   const [selectedCoords, setSelectedCoords] = useState<number[]>([]);
-  const [cursorPos, setCursorPos] = useState<{x: number, y: number} | null>(null);
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(
+    null
+  );
   const containerRef = useRef<HTMLDivElement>(null);
 
   // New state variables for panning
   const [isDragging, setIsDragging] = useState(false);
-  const [startDragPos, setStartDragPos] = useState<{x: number, y: number} | null>(null);
+  const [startDragPos, setStartDragPos] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
   const [hasMoved, setHasMoved] = useState(false);
-  
+
   // Constants for drag threshold
   const DRAG_THRESHOLD = 5; // pixels to move before considering it a drag
 
@@ -35,8 +48,8 @@ export default function SearchArea({
       // Make the container focusable and focus it
       containerRef.current.tabIndex = 0;
       containerRef.current.focus();
-      
-      // This prevents the focus outline from showing 
+
+      // This prevents the focus outline from showing
       containerRef.current.style.outline = 'none';
     }
   }, []);
@@ -45,7 +58,7 @@ export default function SearchArea({
   useEffect(() => {
     const searchArea = containerRef.current;
     if (!searchArea) return;
-    
+
     // Check if SelectionBox is open
     if (selectedCoords.length > 0 && cursorPos) {
       // Disable scrolling on both body and SearchArea
@@ -61,20 +74,20 @@ export default function SearchArea({
     return () => {
       document.body.style.overflow = 'auto';
       if (searchArea) {
-      searchArea.style.overflow = 'auto';
-    }
+        searchArea.style.overflow = 'auto';
+      }
     };
   }, [selectedCoords, cursorPos]);
 
   // Handle mouse down - potential start of drag
   const handleMouseDown = (e: React.MouseEvent<HTMLImageElement>) => {
     if (e.button !== 0) return; // Only handle left mouse button
-    
+
     // Record the starting position
     setStartDragPos({ x: e.clientX, y: e.clientY });
     setIsDragging(true);
     setHasMoved(false);
-    
+
     // Change cursor to grabbing
     if (containerRef.current) {
       containerRef.current.style.cursor = 'grabbing';
@@ -84,20 +97,23 @@ export default function SearchArea({
   // Handle mouse move - continue drag if started
   const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
     if (!isDragging || !startDragPos || !containerRef.current) return;
-    
+
     const deltaX = e.clientX - startDragPos.x;
     const deltaY = e.clientY - startDragPos.y;
-    
+
     // Check if we've moved enough to consider this a drag operation
-    if (!hasMoved && (Math.abs(deltaX) > DRAG_THRESHOLD || Math.abs(deltaY) > DRAG_THRESHOLD)) {
+    if (
+      !hasMoved &&
+      (Math.abs(deltaX) > DRAG_THRESHOLD || Math.abs(deltaY) > DRAG_THRESHOLD)
+    ) {
       setHasMoved(true);
     }
-    
+
     if (hasMoved) {
       // Move the scroll position
       containerRef.current.scrollLeft -= deltaX;
       containerRef.current.scrollTop -= deltaY;
-      
+
       // Update the start position for the next move event
       setStartDragPos({ x: e.clientX, y: e.clientY });
     }
@@ -109,12 +125,12 @@ export default function SearchArea({
     if (containerRef.current) {
       containerRef.current.style.cursor = 'auto';
     }
-    
+
     // If we didn't drag (or barely moved), treat as a click
     if (!hasMoved && isDragging) {
       handleClick(e);
     }
-    
+
     // Reset drag state
     setIsDragging(false);
     setStartDragPos(null);
@@ -148,7 +164,7 @@ export default function SearchArea({
     const yWithScroll = clickY + container.scrollTop;
     const xCoord = Math.round((xWithScroll / image.width) * 10000);
     const yCoord = Math.round((yWithScroll / image.height) * 10000);
-    
+
     setSelectedCoords([xCoord, yCoord]);
   };
 
@@ -158,17 +174,18 @@ export default function SearchArea({
         {
           id: targetId,
           xCoord: selectedCoords[0],
-          yCoord: selectedCoords[1]
+          yCoord: selectedCoords[1],
         },
         cursorPos
-      );      
+      );
     }
     setSelectedCoords([]);
     setCursorPos(null);
   };
 
   return (
-    <div ref={containerRef}
+    <div
+      ref={containerRef}
       className={`${className} ${styles.searchArea} ${isDragging ? styles.grabbing : ''}`}
       tabIndex={0}
     >
@@ -195,14 +212,14 @@ export default function SearchArea({
 
       {selectedCoords.length > 0 && cursorPos && (
         <>
-          <div 
-          className={styles.clickMarker}
-          style={{
-            position: 'fixed',
-            left: cursorPos.x,
-            top: cursorPos.y,
-            transform: 'translate(-50%, -50%)' 
-          }}
+          <div
+            className={styles.clickMarker}
+            style={{
+              position: 'fixed',
+              left: cursorPos.x,
+              top: cursorPos.y,
+              transform: 'translate(-50%, -50%)',
+            }}
           />
           <SelectionBox
             coords={selectedCoords}

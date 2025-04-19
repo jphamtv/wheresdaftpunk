@@ -60,13 +60,20 @@ export default function Home() {
         />
       </div>
       <div className={styles.gameIntro}>
-        <p>The robots are hiding...and they're not alone. From punk to funk, from rock to electronica - legends of music are tearing it up with the punters.</p>
-        <p>Your mission: search through the epic music festival scene to spot Daft Punk and other legendary artists.</p>
+        <p>
+          The robots are hiding...and they're not alone. From punk to funk, from
+          rock to electronica - legends of music are tearing it up with the
+          punters.
+        </p>
+        <p>
+          Your mission: search through the epic music festival scene to spot
+          Daft Punk and other legendary artists.
+        </p>
         <p>Time is ticking!</p>
       </div>
       <button onClick={handleStartGame}>Start Game</button>
       <div>
-        <ScoreBoard scores={ scores } />
+        <ScoreBoard scores={scores} />
       </div>
     </main>
   );

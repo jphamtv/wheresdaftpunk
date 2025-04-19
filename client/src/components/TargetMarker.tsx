@@ -8,13 +8,13 @@ interface TargetMarkerProps {
 
 export default function TargetMarker({ name, x, y }: TargetMarkerProps) {
   return (
-    <span 
+    <span
       className={styles.label}
-      style={{ 
+      style={{
         position: 'absolute',
         left: x,
         top: y,
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
       }}
     >
       {name}

@@ -1,12 +1,12 @@
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+  import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 export const apiClient = {
   get: async <TResponse>(endpoint: string) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
       credentials: 'include',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
     });
     if (!response.ok) {
@@ -16,7 +16,7 @@ export const apiClient = {
   },
 
   post: async <TResponse, TRequest = unknown>(
-    endpoint: string, 
+    endpoint: string,
     data?: TRequest
   ) => {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -24,7 +24,7 @@ export const apiClient = {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       body: data ? JSON.stringify(data) : undefined,
     });

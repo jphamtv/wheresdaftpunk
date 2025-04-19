@@ -31,9 +31,9 @@
 
 .stateContainer {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  min-height: 100vh; 
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .loading,

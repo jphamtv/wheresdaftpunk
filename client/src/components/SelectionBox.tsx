@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Target, FoundTarget } from '../types/gameTypes';
-import styles from './SelectionBox.module.css'
+import styles from './SelectionBox.module.css';
 
 interface SelectionBoxProps {
   coords: number[];
@@ -19,11 +19,11 @@ export default function SelectionBox({
   foundTargets,
   onSelect,
   containerRef,
-  onClose
+  onClose,
 }: SelectionBoxProps) {
   const boxRef = useRef<HTMLDivElement>(null);
-  const remainingTargets = targets.filter(target =>
-    !foundTargets.some(found => found.id === target.id)
+  const remainingTargets = targets.filter(
+    target => !foundTargets.some(found => found.id === target.id)
   );
 
   useEffect(() => {
@@ -37,16 +37,16 @@ export default function SelectionBox({
     // Position box to the right or left of cursor
     const showOnLeft = cursorPos.x > containerRect.width / 2;
     const xOffset = showOnLeft ? -boxRect.width - 50 : 50;
-    
-    box.style.position = 'fixed'; 
+
+    box.style.position = 'fixed';
     box.style.left = `${cursorPos.x + xOffset}px`;
-    
+
     // Vertical positioning with bounds checking
-    let topPos = cursorPos.y - (boxRect.height / 2);
+    let topPos = cursorPos.y - boxRect.height / 2;
     const minTop = 10;
     const maxTop = window.innerHeight - boxRect.height - 10;
     topPos = Math.max(minTop, Math.min(maxTop, topPos));
-    
+
     box.style.top = `${topPos}px`;
   }, [cursorPos, containerRef]);
 
@@ -55,10 +55,7 @@ export default function SelectionBox({
   }
 
   return (
-    <div
-      ref={boxRef}
-      className={styles.selectionBox}
-    >
+    <div ref={boxRef} className={styles.selectionBox}>
       <div className={styles.closeButton} onClick={onClose}>
         close
       </div>

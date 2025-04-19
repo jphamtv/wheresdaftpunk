@@ -3,7 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
 import SearchArea from '../components/SearchArea';
-import { GameStatus, Score, Target, FoundTarget, ValidationRequest } from '../types/gameTypes';
+import {
+  GameStatus,
+  Score,
+  Target,
+  FoundTarget,
+  ValidationRequest,
+} from '../types/gameTypes';
 import { targetService } from '../services/targetService';
 import { scoreService } from '../services/scoreService';
 import { formatTime } from '../utils/timeFormat';
@@ -18,7 +24,7 @@ interface Feedback {
 export default function Game() {
   const navigate = useNavigate();
   const [scores, setScores] = useState<Score[]>([]);
-  const [gameStatus, setGameStatus] = useState<GameStatus>('not-started');  
+  const [gameStatus, setGameStatus] = useState<GameStatus>('not-started');
   const [targets, setTargets] = useState<Target[]>([]);
   const [foundTargets, setFoundTargets] = useState<FoundTarget[]>([]);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -32,16 +38,16 @@ export default function Game() {
   }, []);
 
   useEffect(() => {
-  const fetchScores = async () => {
-    try {
-      const scores = await scoreService.getScores();
-      setScores(scores);
-    } catch (err) {
-      logger.error('Error fetching scores:', err);
-    }
-  };
-  fetchScores();
-}, []);
+    const fetchScores = async () => {
+      try {
+        const scores = await scoreService.getScores();
+        setScores(scores);
+      } catch (err) {
+        logger.error('Error fetching scores:', err);
+      }
+    };
+    fetchScores();
+  }, []);
 
   useEffect(() => {
     let intervalId: number;
@@ -60,20 +66,20 @@ export default function Game() {
 
   // Prevents browser back button navigation during gameplay
   useEffect(() => {
-  // Push a new entry to history when game starts
-  window.history.pushState(null, '', window.location.pathname);
-
-  // Prevent going back by pushing another state when back is clicked
-  const handlePopState = () => {
+    // Push a new entry to history when game starts
     window.history.pushState(null, '', window.location.pathname);
-  };
 
-  window.addEventListener('popstate', handlePopState);
+    // Prevent going back by pushing another state when back is clicked
+    const handlePopState = () => {
+      window.history.pushState(null, '', window.location.pathname);
+    };
 
-  return () => {
-    window.removeEventListener('popstate', handlePopState);
-  };
-}, []);
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
 
   const handleGameStart = async () => {
     try {
@@ -91,7 +97,7 @@ export default function Game() {
 
   const handleTargetValidation = async (
     request: ValidationRequest,
-    cursorPos: { x: number, y: number }
+    cursorPos: { x: number; y: number }
   ) => {
     try {
       const { success, message } = await targetService.verifyLocation(
@@ -107,35 +113,35 @@ export default function Game() {
       setTimeout(() => setFeedback(null), 2000);
 
       if (success) {
-      const target = targets.find(target => target.id === request.id);
-      if (target) {
-        // Get current cursor position from SearchArea
-        const searchArea = document.querySelector(`.${styles.searchArea}`);
-        const rect = searchArea?.getBoundingClientRect();
-        // Get current scroll position
-        const scrollLeft = searchArea?.scrollLeft || 0;
-        const scrollTop = searchArea?.scrollTop || 0;
+        const target = targets.find(target => target.id === request.id);
+        if (target) {
+          // Get current cursor position from SearchArea
+          const searchArea = document.querySelector(`.${styles.searchArea}`);
+          const rect = searchArea?.getBoundingClientRect();
+          // Get current scroll position
+          const scrollLeft = searchArea?.scrollLeft || 0;
+          const scrollTop = searchArea?.scrollTop || 0;
 
-        if (rect && cursorPos) {
-          const newFoundTarget: FoundTarget = {
-            id: request.id,
-            name: target.name,
-            x: cursorPos.x - rect.left + scrollLeft,  // Convert to container coordinates
-            y: cursorPos.y - rect.top + scrollTop,    // Convert to container coordinates
-            xCoord: request.xCoord,  // Keep these for backend validation
-            yCoord: request.yCoord
-          };
-          setFoundTargets(prev => {
-            const updated = [...prev, newFoundTarget];
-            if (updated.length === targets.length) {
-              handleGameEnd();
-            }
-            return updated;
-          });
+          if (rect && cursorPos) {
+            const newFoundTarget: FoundTarget = {
+              id: request.id,
+              name: target.name,
+              x: cursorPos.x - rect.left + scrollLeft, // Convert to container coordinates
+              y: cursorPos.y - rect.top + scrollTop, // Convert to container coordinates
+              xCoord: request.xCoord, // Keep these for backend validation
+              yCoord: request.yCoord,
+            };
+            setFoundTargets(prev => {
+              const updated = [...prev, newFoundTarget];
+              if (updated.length === targets.length) {
+                handleGameEnd();
+              }
+              return updated;
+            });
+          }
         }
       }
-    }
-    return { success, message };
+      return { success, message };
     } catch (err) {
       setError('Failed to verify target');
       logger.error('Error verifying target: ', err);
@@ -154,20 +160,20 @@ export default function Game() {
       logger.error('Error ending game: ', err);
     }
   };
-  
+
   const handleScoreSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const formData = new FormData(e.currentTarget);
       const username = formData.get('username') as string;
-      await scoreService.submitScore(username);           
-      navigate('/'); 
+      await scoreService.submitScore(username);
+      navigate('/');
     } catch (err) {
       setError('Failed to submit score');
       logger.error('Error submitting score: ', err);
-    }    
+    }
   };
-  
+
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
 
@@ -200,14 +206,17 @@ export default function Game() {
           <div className={styles.modalOverlay} />
           <div className={styles.completionModal}>
             <h2>Congratulations!</h2>
-            <p>You found all the artists in <span className={styles.score}>{formatTime(elapsedTime)}</span></p>
+            <p>
+              You found all the artists in{' '}
+              <span className={styles.score}>{formatTime(elapsedTime)}</span>
+            </p>
             <form onSubmit={handleScoreSubmit}>
               <input
                 type="text"
                 name="username"
                 pattern="[A-Za-z]{3}"
                 maxLength={3}
-                placeholder='Enter 3 initials'
+                placeholder="Enter 3 initials"
                 required
                 autoFocus
               />

@@ -8,7 +8,10 @@ export const logger = {
   // Always log errors, but with less detail in production
   error: (message: string, ...args: unknown[]) => {
     if (import.meta.env.DEV) {
-      console.error(`[${new Date().toISOString()}] [ERROR] ${message}`, ...args);
+      console.error(
+        `[${new Date().toISOString()}] [ERROR] ${message}`,
+        ...args
+      );
     } else {
       // In production, log minimal info
       console.error(`[ERROR] ${message}`);

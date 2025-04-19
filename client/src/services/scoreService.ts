@@ -1,5 +1,9 @@
-import { apiClient } from "../utils/apiClient";
-import { Score, StartTimerResponse, StopTimerResponse } from "../types/gameTypes";
+import { apiClient } from '../utils/apiClient';
+import {
+  Score,
+  StartTimerResponse,
+  StopTimerResponse,
+} from '../types/gameTypes';
 
 export const scoreService = {
   getScores: () => {
@@ -10,5 +14,6 @@ export const scoreService = {
 
   stopTimer: () => apiClient.post<StopTimerResponse>('/game/stop-timer'),
 
-  submitScore: (username: string) => apiClient.post('/game/submit-score', { username })
+  submitScore: (username: string) =>
+    apiClient.post('/game/submit-score', { username }),
 };

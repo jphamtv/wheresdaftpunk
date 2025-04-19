@@ -1,5 +1,5 @@
-import { apiClient } from "../utils/apiClient";
-import { Target, ValidationResponse } from "../types/gameTypes";
+import { apiClient } from '../utils/apiClient';
+import { Target, ValidationResponse } from '../types/gameTypes';
 
 export const targetService = {
   getTargets: () => {
@@ -10,9 +10,9 @@ export const targetService = {
     const requestBody = {
       id,
       xCoord,
-      yCoord
+      yCoord,
     };
 
     return apiClient.post<ValidationResponse>('/targets/verify', requestBody);
-  }
+  },
 };

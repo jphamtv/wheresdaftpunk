@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=VT323&display=swap');
 
 :root {
-  --font-space: "Space Mono", monospace;
-  --font-vt323: "VT323", monospace;
+  --font-space: 'Space Mono', monospace;
+  --font-vt323: 'VT323', monospace;
 
-  font-family: "Space Mono", monospace;
+  font-family: 'Space Mono', monospace;
   font-size: 1.2rem;
   line-height: 1.5;
   font-weight: 400;
@@ -39,7 +39,7 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1.25em;
   font-weight: 400;
-  font-family: "Space Mono", monospace;
+  font-family: 'Space Mono', monospace;
   text-transform: uppercase;
 
   background-color: #101010;
