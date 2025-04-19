@@ -1,6 +1,6 @@
 // models/db.ts
 import { Pool } from 'pg';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 // Create different connection configurations based on environment

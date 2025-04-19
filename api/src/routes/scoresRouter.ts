@@ -1,5 +1,10 @@
 import express from 'express';
-import { getScores, startTimer, stopTimer, submitScore } from '../controllers/scoreController';
+import {
+  getScores,
+  startTimer,
+  stopTimer,
+  submitScore,
+} from '../controllers/scoreController';
 
 const router = express.Router();
 

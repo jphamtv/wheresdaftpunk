@@ -1,6 +1,6 @@
 /**
  * Simple logger for Where's Daft Punk app
- * 
+ *
  * Environment-aware logging that minimizes console output in production
  * while providing detailed logs in development.
  */
@@ -31,7 +31,8 @@ export const logger = {
   // Always log errors in both environments
   error: (message: string | Error, ...args: unknown[]) => {
     // If message is an Error object, convert to string
-    const errorMessage = message instanceof Error ? message.toString() : message;
+    const errorMessage =
+      message instanceof Error ? message.toString() : message;
     console.error(formatMessage('ERROR', errorMessage), ...args);
   },
 

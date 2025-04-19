@@ -1,11 +1,11 @@
-import express, { Express, Request, Response, NextFunction } from "express";
-import cors from "cors";
+import express, { Express, Request, Response, NextFunction } from 'express';
+import cors from 'cors';
 import db from './models/db';
 import targetsRouter from './routes/targetsRouter';
 import scoresRouter from './routes/scoresRouter';
-import { corsOptionsBase } from "./config/corsConfig";
+import { corsOptionsBase } from './config/corsConfig';
 import { logger } from './utils/logger';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 const app: Express = express();
@@ -26,24 +26,36 @@ app.get('/health', (req: Request, res: Response) => {
     try {
       // Check database connection by running a simple query
       const result = await db.query(`SELECT 1 as test`);
-      return res.status(200).json({ status: 'ok', message: 'Service is healthy', dbConnected: true });
+      return res
+        .status(200)
+        .json({
+          status: 'ok',
+          message: 'Service is healthy',
+          dbConnected: true,
+        });
     } catch (err) {
       logger.error(`Health check failed: ${err}`);
-      return res.status(500).json({ status: 'error', message: 'Service is unhealthy', dbConnected: false });
+      return res
+        .status(500)
+        .json({
+          status: 'error',
+          message: 'Service is unhealthy',
+          dbConnected: false,
+        });
     }
   };
-  
+
   checkHealth();
 });
 
 // Routes
-app.use("/api/game", scoresRouter);
-app.use("/api/targets", targetsRouter);
+app.use('/api/game', scoresRouter);
+app.use('/api/targets', targetsRouter);
 
 // Error handing
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   logger.error(err.message); // Log error message as string
-  res.status(500).json({ error: "Something went wrong" }); // Send simple message to user to see
+  res.status(500).json({ error: 'Something went wrong' }); // Send simple message to user to see
 });
 
 export default app;

@@ -1,7 +1,7 @@
-import { Request, Response, RequestHandler } from "express";
-import { getAll, getById, verifyCoordinates } from "../models/targetModel";
-import { VerifyTargetApiRequest } from "../types/apiTypes";
-import { toDbVerifyTarget } from "../types/transformers";
+import { Request, Response, RequestHandler } from 'express';
+import { getAll, getById, verifyCoordinates } from '../models/targetModel';
+import { VerifyTargetApiRequest } from '../types/apiTypes';
+import { toDbVerifyTarget } from '../types/transformers';
 import { logger } from '../utils/logger';
 
 export const getTargets = async (req: Request, res: Response) => {
@@ -9,8 +9,8 @@ export const getTargets = async (req: Request, res: Response) => {
     const targets = await getAll();
     res.json(targets);
   } catch (err) {
-    logger.error("Fetching error: ", err);
-    res.status(500).json({ message: "Error fetching targets" });
+    logger.error('Fetching error: ', err);
+    res.status(500).json({ message: 'Error fetching targets' });
   }
 };
 
@@ -26,16 +26,16 @@ export const verifyTarget = (async (req: Request, res: Response) => {
       const target = await getById(dbRequest.id);
       return res.json({
         success: true,
-        message: `You found ${target.name}!`
+        message: `You found ${target.name}!`,
       });
     }
 
     res.json({
       success: false,
-      message: 'Try again'
+      message: 'Try again',
     });
   } catch (err) {
-    logger.error("Error verifying target: ", err);
-    res.status(500).json({ message: "Error verifying target" });
+    logger.error('Error verifying target: ', err);
+    res.status(500).json({ message: 'Error verifying target' });
   }
 }) as RequestHandler;
