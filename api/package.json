@@ -2,14 +2,16 @@
   "name": "api",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint": "eslint . --config eslint.config.js",
+    "lint:fix": "eslint . --fix --config eslint.config.js",
+    "lint:file": "eslint --config eslint.config.js"
   },
   "keywords": [],
   "author": "",
