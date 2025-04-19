@@ -1,4 +1,6 @@
 /**
+ * Simple logger for Where's Daft Punk app
+ * 
  * Environment-aware logging that minimizes console output in production
  * while providing detailed logs in development.
  */
@@ -27,14 +29,16 @@ const formatMessage = (level: string, message: string): string => {
 // Simple logger object
 export const logger = {
   // Always log errors in both environments
-  error: (message: string, ...args: unknown[]) => {
-    console.error(formatMessage('ERROR', message), ...args);
+  error: (message: string | Error, ...args: unknown[]) => {
+    // If message is an Error object, convert to string
+    const errorMessage = message instanceof Error ? message.toString() : message;
+    console.error(formatMessage('ERROR', errorMessage), ...args);
   },
 
   // Only log info in development or when explicitly enabled
   info: (message: string, ...args: unknown[]) => {
     if (getLogLevel() >= LogLevel.INFO) {
-      console.info(formatMessage('INFO', message), ...args);
+      console.log(formatMessage('INFO', message), ...args);
     }
   },
 };

@@ -32,7 +32,7 @@ app.get('/health', (req: Request, res: Response) => {
       return res.status(500).json({ status: 'error', message: 'Service is unhealthy', dbConnected: false });
     }
   };
-
+  
   checkHealth();
 });
 
