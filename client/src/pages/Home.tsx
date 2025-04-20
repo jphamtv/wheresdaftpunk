@@ -72,9 +72,11 @@ export default function Home() {
         <p>Time is ticking!</p>
       </div>
       <button onClick={handleStartGame}>Start Game</button>
-      <div>
-        <ScoreBoard scores={scores} />
-      </div>
+      {scores.length > 0 && 
+        <div>
+          <ScoreBoard scores={scores} />
+        </div>
+      }
     </main>
   );
 }

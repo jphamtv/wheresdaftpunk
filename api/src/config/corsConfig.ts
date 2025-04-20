@@ -4,7 +4,7 @@ import { logger } from '../utils/logger';
 const devOrigins = ['http://localhost:5173'];
 
 // In production
-const containerOrigins = ['http://wheresdaftpunk-frontend:3000'];
+const containerOrigins = ['http://wheresdaftpunk.com'];
 
 const allowedOrigins =
   process.env.NODE_ENV === 'production'
