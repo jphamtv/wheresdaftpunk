@@ -51,32 +51,57 @@ export default function Home() {
 
   return (
     <main className={styles.container}>
-      <div className={styles.titleContainer}>
+      {/* Small screen message */}
+      <div className={styles.smallScreenMessage}>
         <h1 className={styles.title}>Where's Daft Punk?</h1>
         <img
           className={styles.daftPunkImage}
           src={daftPunkImage}
           alt="Daft Punk helmets"
         />
-      </div>
-      <div className={styles.gameIntro}>
         <p>
-          The robots are hiding...and they're not alone. From punk to funk, from
-          rock to electronica - legends of music are tearing it up with the
-          punters.
+          Sorry! This game is optimized for larger screens.
         </p>
         <p>
-          Your mission: search through the epic music festival scene to spot
-          Daft Punk and other legendary artists.
+          Please use a desktop computer or tablet in landscape mode (iPad Pro or larger) 
+          for the best experience.
         </p>
-        <p>Time is ticking!</p>
       </div>
-      <button onClick={handleStartGame}>Start Game</button>
-      {scores.length > 0 && 
-        <div>
-          <ScoreBoard scores={scores} />
+
+      {/* Main content for larger screens */}
+      <div className={styles.mainContent}>
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>Where's Daft Punk?</h1>
+          <img
+            className={styles.daftPunkImage}
+            src={daftPunkImage}
+            alt="Daft Punk helmets"
+          />
         </div>
-      }
+        <div className={styles.gameIntro}>
+          <p>
+            The robots are hiding...and they're not alone. From punk to funk, from
+            rock to electronica - legends of music are tearing it up with the
+            punters.
+          </p>
+          <p>
+            Your mission: search through the epic music festival scene to spot
+            Daft Punk and other legendary artists.
+          </p>
+          <p>Time is ticking!</p>
+        </div>
+        <button
+          onClick={handleStartGame}
+          className={styles.startButton}
+        >
+          Start Game
+        </button>
+        {scores.length > 0 && 
+          <div>
+            <ScoreBoard scores={scores} />
+          </div>
+        }
+      </div>
     </main>
   );
 }
